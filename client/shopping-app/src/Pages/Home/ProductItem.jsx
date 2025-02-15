@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Rating } from '@mui/material'
 import { AiOutlineFullscreen } from 'react-icons/ai'
 import { IoIosHeartEmpty } from 'react-icons/io'
+
 import ProductModal from '../../Components/ProductModal'
-import Slider from 'react-slick'
 import { fetchDataFromApi, PostData } from '../../utils/api'
 import { Link } from 'react-router-dom'
 import { MyContext } from '../../App';
