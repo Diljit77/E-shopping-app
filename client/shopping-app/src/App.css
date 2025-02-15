@@ -1,0 +1,1041 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: 14px;
+}
+
+.bg-purple {
+    background: linear-gradient(to bottom right, #4a2888, #7a55c1);
+    color: #fff;
+}
+
+.headerWrapper .top-strip {
+    padding: 8px 0px
+}
+
+.headerWrapper .top-strip p {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    color: #000 !important;
+}
+
+.headerWrapper .header {
+    width: 100%;
+    height: auto;
+    padding: 15px 0;
+}
+
+.logoWrapper img {
+    width: 70%;
+}
+
+.headerWrapper .header .part2 .countrydrop {
+    width: 150px;
+    height: 80px;
+    min-width: 150px;
+}
+
+.headerWrapper .header .part2 .countrydrop .label {
+    font-size: 12px !important;
+    text-transform: capitalize !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+    line-height: 16px;
+}
+
+.headerWrapper .header .part2 .countrydrop .name {
+    font-size: 14px !important;
+    text-transform: capitalize !important;
+    color: rgba(0, 0, 0, 0.8) !important;
+    line-height: 16px;
+}
+
+.headerWrapper .header .part2 .countrydrop span .ml-auto svg {
+    opacity: 0.7;
+}
+
+.headerSearch {
+    width: 55%;
+    height: 45px;
+    background: #f3f4f7;
+    padding: 10px;
+    position: relative;
+}
+
+.headerSearch input {
+    background: transparent !important;
+    outline: none !important;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 40px;
+    border: 0px !important;
+    padding: 0px 15px !important;
+}
+
+.headerSearch button svg {
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    z-index: 100;
+}
+.BTM{
+    font-weight: 600;
+    padding: 8px 15px;
+    border: none;
+}
+
+.header .part3 .circle {
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px !important;
+    width: 40px;
+    border-radius: 50% !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    color: #000;
+}
+.reviewsCard .info{
+width: 85%;
+}
+re.reviewCard{
+    margin-bottom: 25px !important;
+}
+.reviewForm .form-group{
+margin-bottom: 25px;
+}.reviewForm .form-group .form-control{
+    height: 80px;
+    font-size: 20px;
+    border-radius: 7px !important;
+    padding-left: 20px;
+}
+.reviewForm .form-group textarea .form-control{
+    height: 200px;
+    padding-top: 25px;
+}
+.header .part3 .circle svg {
+    font-size: 22px;
+}
+
+.carttab button {
+    color: #fff1ee !important;
+}
+
+.carttab .price {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 700;
+}
+
+.carttab svg {
+    color: #ea2b0f !important;
+}
+
+.carttab .count {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background: #ea2b0f;
+    border-radius: 50%;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+}
+
+nav .allcattab {
+    background: #2bbef9;
+    padding: 10px 15px !important;
+    color: #fff;
+    border-radius: 30px;
+}
+
+nav .allcattab:hover {
+    color: #fff;
+    background: #2bbef9;
+}
+
+nav .allcattab .text {
+    font-weight: 600;
+    color: #fff;
+    background: #2bbef9;
+    border: none;
+}
+
+.navpart1 {
+    max-width: 20%;
+}
+
+nav .allcattab.icon1 svg {
+    font-size: 20px;
+}
+
+nav .allcattab.icon2 svg {
+    font-size: 15px;
+}
+
+nav .navpart2 ul {
+    margin-bottom: 0px;
+}
+
+nav .navpart2 ul li Button {
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.8);
+    text-transform: uppercase;
+    align-items: center;
+    padding: 15px 15px;
+    transition: all 0.2s ease-in-out;
+    border-radius: 25px;
+}
+
+nav .navpart2 ul li Button:hover {
+    background: #f0faff;
+    color: linear-gradient(to bottom right, #4a2888, #7a55c1) !important;
+}
+
+.locationModal .MuiPaper-elevation {
+    padding: 25px;
+    position: relative;
+}
+
+.locationModal .countryList {
+    margin-bottom: 0px;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.locationModal .countryList li {
+    width: 100%;
+    list-style: none;
+}
+
+.locationModal .countryList li button {
+    margin-top: 10px;
+    width: 100%;
+    text-transform: capitalize;
+    background: #fff;
+    color: #000;
+    justify-content: left !important;
+    border: none;
+    padding: 15px 20px;
+}
+
+.close_ {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #000 !important;
+    min-width: 40px !important;
+    width: 40px;
+    height: 40px !important;
+    background: #fff;
+    border: none;
+}
+
+nav .navpart1 .cartWrapper {
+    position: relative;
+}
+
+nav .navpart1 .cartWrapper .open {
+    opacity: 0;
+    visibility: hidden;
+    height: 100%;
+}
+
+nav .navpart1 .cartWrapper .sidebarNav {
+    width: 100%;
+    height: auto;
+    background: #fff;
+    position: absolute;
+    top: 130%;
+    left: 0px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 15px 0px;
+    transition: all 0.2s;
+    z-index: 100;
+
+}
+
+nav .navpart1 .cartWrapper .sidebarNav ul li {
+    position: static;
+}
+
+nav .navpart1 .cartWrapper .sidebarNav ul li .submenu {
+    position: absolute;
+    top: 0px;
+    left: 110%;
+    width: 250px;
+    height: 100%;
+    background: #fff;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+nav .navpart1 .cartWrapper .sidebarNav ul li:hover .submenu {
+    opacity: 1;
+    visibility: inherit;
+    left: 100%;
+}
+
+nav .navpart1 .cartWrapper .sidebarNav ul li:hover .submenu button {
+    border-radius: 0px;
+}
+
+nav .navpart1 .cartWrapper .sidebarNav ul li {
+    width: 100%;
+    list-style: none;
+}
+
+nav .navpart1 .cartWrapper .sidebarNav ul li button {
+    color: #000;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+nav .navpart1 .cartWrapper .sidebarNav ul li button:hover {
+    color: #000;
+}
+
+.locationModal .close_ svg {
+    font-size: 20px;
+}
+
+nav .navpart2 ul li {
+    position: relative;
+    z-index: 100 !important;
+}
+
+nav .navpart2 ul li .submenu {
+    position: absolute;
+    top: 150%;
+    left: 0%;
+    min-width: 300px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.1s ease-in-out;
+    background-color: white;
+    z-index: 100 !important;
+}
+
+nav .navpart2 ul li .submenu a {
+    display: block;
+    width: 100%;
+    z-index: 100;
+}
+
+nav .navpart2 ul li .submenu a Button {
+    width: 100%;
+    justify-content: flex-start !important;
+    border-radius: 0px !important;
+}
+
+nav .navpart2 ul li:hover .submenu {
+    opacity: 1;
+    visibility: inherit;
+    top: 100%;
+}
+
+.homebannersection {
+    position: relative;
+    overflow: hidden;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.homeproducts {
+    padding: 25px 0px;
+}
+
+.homeproducts .banner {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.text-light {
+    color: #000 !important;
+}
+
+.productRow .hd {
+    font-size: 25px;
+}
+
+.viewallbtn {
+    padding: 8px 25px;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    color: #000;
+    font-weight: 600;
+    text-transform: capitalize;
+
+}
+
+.viewallbtn svg {
+    font-size: 20px;
+}
+
+.productitem {
+    width: 100%;
+    height: auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    position: relative;
+}
+
+.productitem .info {
+    padding: 15px;
+}
+
+.productitem .info h4 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.info .oldprice {
+    font-size: 15px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.2);
+    text-decoration: line-through;
+}
+
+.info .netprice {
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.product_row .myswiper:last-child .productitem {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.swiper {
+    padding-right: 1px;
+}
+
+.productitem .badge {
+    display: inline-block;
+    padding: 7px 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+}
+
+.badge-primary {
+    background: #2bbef9 !important;
+}
+
+.productitem .actions {
+    position: absolute;
+    top: 20px;
+    z-index: 100;
+    right: 10px;
+
+}
+
+.productitem .actions button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    width: 40px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    background: #fff;
+    margin: 4px;
+}
+
+.productitem .actions button svg {
+    color: #000;
+    opacity: 0.7;
+}
+
+.productitem .actions button:hover {
+    background: #2bbef9 !important;
+}
+
+.homecat {
+    padding: 35px 0px;
+}
+
+.homecat .mySwiper .item {
+    padding: 15px;
+    width: 100%;
+    height: auto;
+    background: #feefea;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.homecat .mySwiper .item img {
+    width: 80%;
+}
+
+.productRow-2 {
+    flex-wrap: wrap;
+
+
+}
+
+.productRow-2 .productitem {
+    width: 25%;
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.bannerSec {
+    gap: 15px;
+}
+
+.bannerSec .banner img {
+    position: relative;
+    width: 100%;
+}
+
+.sticky {
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+}
+
+.newsLetterSection {
+    width: 100%;
+    height: auto;
+    background: linear-gradient(to bottom right, #4a2888, #7a55c1);
+    position: relative;
+    overflow: hidden;
+}
+
+.newsLetterSection p {
+    font-size: 18px;
+}
+
+.newsLetterSection h3 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.newsLetterSection .text-light {
+    color: #fff;
+    opacity: 0.7;
+    font-size: 15px;
+}
+
+.newsLetterSection img {
+    position: relative;
+    top: 18px;
+    right: 0px;
+    width: 100%;
+}
+
+.newsLetterSection form {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.newsLetterSection form svg {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 25px;
+    opacity: 0.3;
+}
+
+.newsLetterSection form input {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    outline: none !important;
+    padding-left: 50px;
+    padding-right: 200px;
+    border: none;
+}
+
+.newsLetterSection form button {
+    position: absolute;
+    top: 2px;
+    right: 7px;
+    background: linear-gradient(to bottom right, #4a2888, #7a55c1) !important;
+    font-size: 14px;
+    padding: 7px 15px;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 3px;
+}
+
+footer {
+    width: 100%;
+    height: 500px;
+    margin: auto;
+    background: #fff;
+    padding: 25px 0px;
+}
+
+footer .topInfo {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 15px;
+}
+
+footer .topInfo .col {
+    padding: 15px 15px;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+footer .topInfo .col:last-child {
+    border-right: 0px;
+}
+
+footer .topInfo .col svg {
+    font-size: 22px;
+}
+
+footer .topInfo .col span {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+footer .linksWrap h5 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: #7a55c1;
+
+}
+
+footer .linksWrap ul li {
+    list-style: none;
+    margin-bottom: 10px;
+
+}
+
+footer .linksWrap ul li a {
+    color: #000;
+    font-size: 12px;
+}
+
+footer .linksWrap ul li a:hover {
+    text-decoration: none;
+}
+
+footer .copyright ul li a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+footer .copyright ul li a:hover {
+    background: #2bbef9 !important;
+}
+
+footer .copyright ul li a:hover svg {
+    color: #fff !important;
+}
+
+footer .copyright ul li a svg {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.productModal .MuiPaper-elevation {
+    padding: 25px;
+    position: relative;
+    width: 1000px;
+   
+}
+.IMG{
+    height: 225px;
+    width: auto;
+}
+
+.productModal .close_ {
+    top: 0px;
+
+}
+
+.productModal h4 {
+    font-size: 22px;
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 500;
+}
+.productModal .font{
+    font-weight: 600;
+}
+
+.badge.bg-success {
+    background: #e5f8ed !important;
+    color: #16b858 !important;
+}
+
+.bg-blue {
+    background: #2bbef9;
+    color: #fff;
+}
+
+.bg-big {
+    font-size: 17px !important;
+    padding: 7px 20px !important;
+    min-width: auto;
+
+}
+
+.btn-round {
+    border-radius: 30px;
+}
+
+.quantityDrop {
+    width: 150px;
+    gap: 10px;
+
+}
+
+.quantityDrop button {
+    min-width: 40px !important;
+    width: 40px !important;
+    height: 40px;
+    color: #000;
+    background: #edeef5;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.quantityDrop button svg {
+    color: #000;
+}
+
+.quantityDrop input {
+    width: 30px;
+    border: 0px;
+    background: transparent;
+    outline: none;
+}
+
+.btn-sml {
+    font-size: 11px;
+    color: #000;
+}
+
+.btn-sml svg {
+    font-size: 15px;
+    margin-right: 3px;
+}
+
+.productModal .actions button {
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 10px !important;
+
+
+}
+
+.productZoom .badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+}
+.productZoomBig{
+    height: 300px;
+    overflow: hidden;
+}
+.zoomSlider{
+    padding-top: 30px;
+}
+.zoomSlider .item{
+    border: 2px solid transparent; overflow: hidden; border-radius: 8px;
+    margin-left: 10px;
+}
+.zoomSlider .item_active{
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+.IMGS{
+    margin-top: 12px;
+    height: 450px;
+}
+
+.product_Listing_page {
+    padding: 35px 0px;
+}
+
+.product_Listing_page .productListing {
+    gap: 20px;
+}
+
+.product_Listing_page .sidebar {
+    width: 30px;
+    flex: 0 0 30%;
+}
+
+.product_Listing_page .sidebar .filtersBox h6 {
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.product_Listing_page .sidebar .filtersBox {
+    margin-bottom: 40px;
+}
+
+.product_Listing_page .sidebar .scroll ul li {
+    list-style: none;
+    margin-bottom: -8px;
+}
+
+.product_Listing_page .sidebar .scroll::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+
+
+}
+
+.product_Listing_page .sidebar .scroll {
+    padding-left: 5px;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.product_Listing_page .content_right {
+    width: 100%;
+    flex: 0 0 80%;
+    padding-left: 50px;
+}
+
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root {
+    padding: 2px !important;
+}
+
+.showBy {
+    width: 100%;
+    height: 50px;
+    background: #f7f8fd;
+}
+
+.product_Listing_page .content_right .showBy .btnWrapper button {
+    min-width: 30px !important;
+    height: 30px !important;
+    border-radius: 50%;
+}
+.productListing .content_right .showBy .btnWrapper Button svg{
+    color: #000;
+    opacity: 0.4;
+}
+.css-1588512-MuiButtonBase-root-MuiButton-root{
+    color: #000;
+    min-width: 46px;
+}
+.showByfilter button{
+min-width: auto;
+color: #000;
+}
+.showByfilter button svg{
+    padding-left: 6px;
+}
+.product_Listing{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.product_Listing .productitem.four{
+    width: 20%;
+}
+.product_Listing .productitem.three{
+    width: 31%;
+}
+.product_Listing .productitem.one{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.product_Listing .productitem.two{
+    width: 35%;
+}
+
+
+.productListing .content_right .showBy .btnWrapper Button.act  svg{
+opacity: 0.9;
+}
+.detailpageTabs{
+    border-radius: 25px !important;
+}
+.customTabs ul li{
+    margin-right: 30px;
+}
+.customTabs ul li button{
+    padding: 10px 25px;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    border-radius: 25px;
+    font-size: 14px;
+
+}
+.customTabs ul li button.active{
+    color:#fff;
+    background: #2bbef9;
+}
+.reviewForm h4{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.reviewForm .form-group{
+    margin-bottom: 25px;
+}
+.reviewForm .form-group .form-control{
+    height: 200px;
+    font-size: 20px;
+    border-radius: 7px;
+    padding-left: 20px;
+}
+.progressBarBox{
+    margin-bottom: 10px;
+}
+.progress-bar{
+    font-size: 16px;
+}
+.reviewCard .info p{
+    font-size: 13px;
+    line-height: 22px;
+}
+.cartPage .table thead{
+background: #ececec !important;
+border-radius: 10px !important;
+
+}
+.Cartitem .imgWrapper{
+    width: 50%;
+    overflow: hidden;
+}
+ a:hover{
+    text-decoration: none;
+}
+.Cartitem .info h6{
+    color: #000;
+}
+.Cartitem .info h6:hover{
+    color: #ea2b0f;
+}
+.remove svg{
+    font-size: 30px;
+}
+.remove svg:hover{
+    color: #ea2b0f;
+    cursor: pointer;
+}
+.cartPage .quantityDrop button{
+    zoom: 80%;
+}
+.cartPage table th,.cartPage table td{
+    vertical-align:middle;
+}
+.cartDetails{
+    border: 0px !important; border-radius: 7px;
+}
+.cartDetails h4{
+    font-size: 18px;
+    font-weight: 600;border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+}
+.text-red{
+    color: #ea2b0f;
+}
+.signinPage{
+    padding: 50px 60px;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+ overflow: hidden;
+}
+
+ .shape-bottom{
+    position: absolute;
+    top: auto;
+    bottom: -6px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+.signinPage::after{
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-image:linear-gradient(#1e3d81,#2334a3);
+    opacity: 0.9;
+    z-index: -1;
+
+}
+.signinPage .box{
+    width: 450px;
+    height: auto;
+    background-color: #fff;
+    margin: auto;
+}
+.signinPage .img{
+    width: 25%;
+}
+.signinPage .box h2{
+    font-size: 25px;
+    font-weight: 600;
+ 
+}
+.signinPage .box form{
+    padding: 20px 0px;
+}
+.signinPage .border-effect{
+    position: relative;
+    color: #337ab7;
+    text-decoration: none;
+  
+}
+.signinPage .border-effect::after{
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: #102a44;
+    content:"";
+    -webkit-transition: .2s;
+    -moz-transition: .2s;
+    -o-transition: .2s;
+    transition: .2s;
+
+} 
+.signinPage .border-effect:hover{
+    text-decoration: none;
+    color: #000;
+}
+.signinPage .border-effect:hover::after{
+    width: 100%;
+}
+.signinPage .box .form-group{
+    margin: 20px;
+}
+.checkout-form{
+    margin-bottom: 20px;
+}
+.orderinfo{
+    background: #fafafa !important; padding: 25px;
+}
+.orderinfo  thead{
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
