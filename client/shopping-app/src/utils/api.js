@@ -1,4 +1,4 @@
-import { jsx } from "@emotion/react";
+import "dotenv"
 import axios from "axios"
 
  export const fetchDataFromApi=async (url)=>{
@@ -49,11 +49,18 @@ try {
          "Content-Type":"application/json"
         }
     });
-    return res
+    return res;
 } catch (err) {
     console.log(err)
     return err
     
 }
     }
-  
+    export const uploadImage = async (url,formdata) => {
+        const {res}=await axios.post(process.env.REACT_BASE+url,formdata);
+        return res;
+    }
+    export const deleteImage = async (url,formdata) => {
+        const {res}=await axios.delete(`${process.env.REACT_BASE}${url}`,formdata);
+        return res;
+    }

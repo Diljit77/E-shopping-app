@@ -107,7 +107,7 @@ deleteData(`/api/cart/${id}`).then((res)=>{
                                     <th width="15%">Remove</th>
                                 </tr></thead>
                                 <tbody>
-                                    {  
+                                    {   Array.isArray(cartdata) &&
                                     cartdata.length!==0 && Array.isArray(cartdata) && cartdata?.map((item,index)=>{
                                         return(
 
@@ -150,7 +150,7 @@ deleteData(`/api/cart/${id}`).then((res)=>{
             <div className="d-flex align-items-center mb-2" style={{borderBottom:"1px solid rgba(0,0,0,0.1)",paddingBottom:"5px"}}>
                 <span>Subtotal</span>
                 <span className='ml-auto '><b>$
-                    {
+                    { Array.isArray(cartdata) &&
   cartdata.length!==0 && cartdata.map((item)=>   parseInt(item?.price)*item?.Quantiy).reduce((total,value)=>total+value,0)
 
 }.00</b></span>
@@ -166,7 +166,7 @@ deleteData(`/api/cart/${id}`).then((res)=>{
             <div className="d-flex align-items-center mb-2">
                 <span>Total</span>
                 <span className='ml-auto '><b>$
-                {
+                { Array.isArray(cartdata) &&
   cartdata.length!==0 && cartdata.map((item)=>   parseInt(item?.price)*item?.Quantiy).reduce((total,value)=>total+value,0)
 
 }.00</b></span>

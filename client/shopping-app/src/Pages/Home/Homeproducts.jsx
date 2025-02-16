@@ -69,7 +69,7 @@ function Homeproducts(props) {
         onChange={handleChange}
         variant="scrollable"
         scrollButtons="auto" >
-                                        {
+                                        { Array.isArray(catData) &&
                                             catData?.length !== 0 && catData?.map((item, index) => {
                                                 return (
                                                     <Tab  label={item.name} onClick={()=>selectCat(item.name)} />
@@ -94,7 +94,7 @@ function Homeproducts(props) {
                                     modules={[Navigation]}
                                     className="mySwiper" >
                                   
-                                    {
+                                    { Array.isArray(Productdata) &&
                                          Productdata?.length !== 0 && Productdata?.map((item, index) => {
                                             return (
                                                 <SwiperSlide >

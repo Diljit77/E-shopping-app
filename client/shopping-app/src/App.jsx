@@ -16,11 +16,14 @@ import { Snackbar } from '@mui/material';
 import { PostData } from "./utils/api"
 import WIshList from "./Components/myList/myList"
 import Checkout from "./Pages/Checkout/Checkout"
+import Search from "./Pages/Search/Search"
+import Account from "./Pages/Account/Acount"
 
 const MyContext=createContext();
 
 function App() {
   const [cartdata,setCartdata]=useState([])
+  const [searchData,setsearchData]=useState([])
   const [IsLogin,setIsLogin]=useState(false)
 const [user,setuser]=useState({
 name:"",
@@ -88,7 +91,9 @@ const userData=JSON.parse(localStorage.getItem("user"));
     setIsLogin,
     addtocart,
     cartdata,
-    setCartdata
+    setCartdata,
+    searchData,
+    setsearchData
   }
   const handleclose=(event,reason)=>{
     if(reason==="clickaway"){
@@ -125,6 +130,8 @@ const userData=JSON.parse(localStorage.getItem("user"));
         <Route path="/signup" exact={true} element={<Signup />} />
         <Route path="/myList" exact={true} element={<WIshList />} />
         <Route path="/checkout" exact={true} element={<Checkout />} />
+        <Route path="/search" exact={true} element={<Search />} />
+        <Route path="/myaccount" exact={true} element={<Account />} />
       </Routes>
       {
         isHeaderFooter===true && <Footer />

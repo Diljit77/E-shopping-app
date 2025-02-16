@@ -2,7 +2,16 @@ import User from "../models/User.js";
 import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
+import cloudinary from "cloudinary"
+cloudinary.v2;
+ cloudinary.config({
+    cloud_name:process.env.CLOUD_NAME,
+    api_key:process.env.API_KEY,
+    api_secret:process.env.API_SECRET,
+})
+import multer from "multer"
 
+const upload=multer({storage:storage})
 const router=express.Router();
 router.post("/signup",async (req,res)=>{
     const {name, phone, email,password}=req.body;
@@ -29,6 +38,14 @@ router.post("/signup",async (req,res)=>{
         res.status(500).json({message:"something went wrong"})
     }
 
+})
+router.get("/:id",async (req,res) => {
+    const user=await User.findById(req.params.id);
+    if(!user){
+        res.status(500).json({msg:"something went wrong"})
+    }
+    res.send(user);
+    
 })
 router.post("/signin",async (req,res) => {
     const {email,password}=req.body;
@@ -83,6 +100,29 @@ router.get("/get/count",async (req,res) => {
         usercount:usercount
     })
 })
+router.post("/upload",upload.array("images"),async (req,res) => {
+    imageArrr=[];
+    try {
+        for(let i=0;i<req?.files?.length;i++){
+            const options={
+                use_filename:true,
+                unique_filename:true,
+                overwrite:false
+            };
+            const img =await cloudinary.uploader.upload(req.files[i].path, options, function (error,result){
+imageArrr.push(result.secure_url);
+fs.unlnkSync(`uploads/${req.files[i].filename}`);
+
+            })
+        }
+      let imagesupload=new imageUpload({
+        images:imageArrr,
+      })
+    } catch (error) {
+        
+    }
+
+})
 router.put("/:id",async (req,res) => {
     const {name,email,phone,password}=req.body;
     const userexist=await User.findById(req.params.id);
@@ -102,5 +142,17 @@ router.put("/:id",async (req,res) => {
 return res.status(400).send("the user cannot be updated")
     }
     res.send(user)
+})
+router.delete("/deleteimages",async (req,res) => {
+    const imgUrl=req.query.img;
+    const urlarr=imgUrl.split("/")
+    const image=urlarr(urlarr.length-1);
+    const imageName=image.split(".")[0];
+    const response=await cloudinary.uploader.destroy(imageName,(error,result)=>{
+
+    })
+    if(response){
+        res.status(200).send(response)
+    }
 })
 export default router

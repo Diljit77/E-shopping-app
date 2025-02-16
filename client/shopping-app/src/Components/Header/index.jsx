@@ -22,6 +22,7 @@ import Logout from '@mui/icons-material/Logout';
 import { FaClipboardCheck } from "react-icons/fa6";
 import { IoMdHeart } from "react-icons/io";
 import { MdOutlineLogout } from "react-icons/md";
+import Searchbox from '../../Pages/Search/Searchbox';
 
 function Header() {
   const [subcat,setSubCat]=useState([])
@@ -72,12 +73,7 @@ Due to the covid 19, orders may be proceeds with a delay
                         <CountryDrop />
                         
                  
-                  <div className="headerSearch ml-3">
-                    <input type="text" placeholder='Serach your Products' />
-                    <button ><IoSearch /></button>
-
-
-                </div>
+                <Searchbox />
                 <div className="part3 d-flex align-items-center ml-auto">
                   {
                     context.IsLogin!==true?  <Link to={"/signin"} >   <button className='bg-blue BTM btn-round mr-2'>Sign In</button></Link>:
@@ -122,12 +118,14 @@ Due to the covid 19, orders may be proceeds with a delay
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
        
-     
+     <Link to={"/myaccount"} >
+ 
         <MenuItem onClick={handleClose}>
          
        <Avatar />My Account
 
         </MenuItem>
+        </Link>
         <Divider />
         <MenuItem onClick={handleClose}>
         <ListItemIcon>

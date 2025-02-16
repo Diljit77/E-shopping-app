@@ -13,6 +13,7 @@ import authJwt from "./helper/jwt.js";
 import ReviewRoute from "./routes/Reviews.js"
 import cartRoute from "./routes/Cart.js"
 import MyRoute from "./routes/myList.js"
+import SerachRoute from "./routes/Serach.js"
 app.use(cors());
 app.options('*',cors());
 // middleware
@@ -25,10 +26,15 @@ app.use('/api/subcat',SubcategoryRoute);
 app.use("/api/User",UserRoute);
 app.use("/api/review",ReviewRoute);
 app.use("/api/cart",cartRoute);
-app.use("/api/myList",MyRoute)
+app.use("/api/myList",MyRoute);
+app.use("/api/search",SerachRoute);
 app.use(authJwt());
 //monogdb
-mongoose.connect("mongodb://localhost:27017/Full-stack").then(()=>{
+mongoose.connect(process.env.MONGO_DB_ATLAS,{
+   
+
+}).then(()=>{
+
     console.log("Database Connection is ready......")
 }).catch((err)=>{
 console.log(err)
