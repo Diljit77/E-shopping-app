@@ -16,6 +16,7 @@ import MyRoute from "./routes/myList.js"
 import SerachRoute from "./routes/Serach.js"
 app.use(cors());
 app.options('*',cors());
+const port=process.env.port||process.env.PORT;
 // middleware
 app.use(bodyParser.json());
 
@@ -30,6 +31,7 @@ app.use("/api/myList",MyRoute);
 app.use("/api/search",SerachRoute);
 app.use(authJwt());
 //monogdb
+
 mongoose.connect(process.env.MONGO_DB_ATLAS,{
    
 
@@ -39,7 +41,7 @@ mongoose.connect(process.env.MONGO_DB_ATLAS,{
 }).catch((err)=>{
 console.log(err)
 })
-app.listen(process.env.PORT,()=>{
-    console.log(`server is running at ${process.env.PORT}`)
+app.listen(port,()=>{
+    console.log(`server is running at ${port}`)
 })
 
