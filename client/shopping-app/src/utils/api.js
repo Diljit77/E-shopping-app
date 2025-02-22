@@ -12,7 +12,7 @@ import axios from "axios"
  }
  export const PostData=async(url,FormData)=>{
     try{
-       const response =await fetch(`http://localhost:5100${url}`,{
+       const response =await fetch(`${process.env.REACT_BASE}${url}`,{
         method:'POST',
         headers:{
             "Content-Type":"application/json"
@@ -32,7 +32,7 @@ import axios from "axios"
     }
     export const editData=async (url, updateData)=>{
         try {
-           const {res}=await axios.put(`http://localhost:5100${url}`,updateData);
+           const {res}=await axios.put(`${process.env.REACT_BASE}${url}`,updateData);
            return res; 
         } catch (err) {
             console.log(err)
@@ -43,7 +43,7 @@ import axios from "axios"
 try {
     let token=(localStorage.getItem("token"));
     console.log(token)
-    const {res}= await axios.delete(`http://localhost:5100${url}`,{
+    const {res}= await axios.delete(`${process.env.REACT_BASE}${url}`,{
         headers:{
             "Authorization":`Bearer ${token}`,
          "Content-Type":"application/json"

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useTheme } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
+
+import { Tabs } from '@mui/material';
+
+import {Tab} from '@mui/material';
+import {TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import { IoMdCloudUpload } from 'react-icons/io';
-import { TextField } from '@mui/material';
-import { fetchDataFromApi, uploadImage } from '../../utils/api';
+
+import { editData, fetchDataFromApi, uploadImage } from '../../utils/api';
 
 
 function Account() {
@@ -23,12 +23,23 @@ function Account() {
         phone:"",
         images:[],
     })
-    
+    const [fields,setfields]=useState({
+      oldPassword:"",
+      password:"",
+      confirmPassword:""
+
+    })
     const onchangeinput=(e)=>{
         setformfield(()=>({
             ...formfield,[e.target.name]:e.target.value
         }))
     }
+    const onchangeinput2=(e)=>{
+      console.log(e.target.value)
+      setfields(()=>({
+          ...fields,[e.target.name]:e.target.value
+      }))
+  }
     const history=useNavigate();
     function CustomTabPanel(props) {
         const { children, value, index, ...other } = props;
@@ -96,7 +107,30 @@ function Account() {
     })
     const edituser=(e)=>{
         e.prevenDefault();
+        const appendedArray=[...previews,...uniquearray];
+        img_arr=[];
+        formData.append('name',formfield.name);
+        formData.append('email',formfield.email);
+        formData.append('phone',formfield.phone);
+        formData.append('images',appendedArray);
+        formfield.images=appendedArray
+        if(formfield.name!=="" && formfield.email!=="" && previews.length!==0){
+          const user=JSON.parse(localStorage.getItem("user"));
+          editData(`/api/User/${user.userId}`,formfield).then((res)=>{
+            console.log("hii")
+          })
+        }
+        
     }
+    const changepassword=(e)=>{
+      e.prevenDefault();
+      console.log(fields)
+      // formData.append('password',formfield.password);
+      if(fields.oldPassword!=="" && fields.password!=="" && fields.confirmPassword!==""){
+        console.log(fields)
+      }
+    }
+  
   return (
           <section className="section myaccountPage">
   <div className="container mt-4">
@@ -114,10 +148,10 @@ function Account() {
         <div className="d-flex">
             <div className="col-md-4">
                 <div className="userImage">
-                    <img src="https://mironcoder-hothash.netlify.app/images/avatar/01.webp" alt="" />
+                    <img src="" alt="" />
                     <div className="overlay d-flex align-items-center justify-content-center">
                         <IoMdCloudUpload />
-                        <input type='file' />
+                        <input type='file' onChange={(e)=>onchangfile(e,'/api/User/upload')} name="images" />
                     </div>
                 </div>
             </div>
@@ -150,31 +184,35 @@ function Account() {
         </form>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-      <form >
+      <form  >
         <div className="d-flex">
            
             <div className="col-md-12">
                 <div className="row">
                     <div className="col-md-4">
                         <div className="form-group">
-                            <TextField variant='outlined' className='w-100' label="Name" size='small' />
+                
+
+                        <TextField  label="Old Password" className='w-100' name='oldPassword' variant="outlined" onChange={onchangeinput2} size='small' value={fields.oldPassword}  />
+
+                        
                         </div>
                     </div> 
                       <div className="col-md-4">
                         <div className="form-group">
-                            <TextField variant='outlined' className='w-100' label="Email" disabled size='small' />
+                            <TextField variant='outlined' className='w-100' label="New Passwprd" value={fields.password} name='password'  onChange={onchangeinput2}  size='small' />
                         </div>
                     </div>
                     <div className="col-md-4">
                         <div className="form-group">
-                            <TextField variant='outlined' className='w-100' label="Phone Number" size='small' />
+                            <TextField variant='outlined' className='w-100' name='confirmPassword' value={fields.confirmPassword}  onChange={onchangeinput2}  label="Confirm Password" size='small' />
                         </div>
                     </div>
                  
                 </div>
                 <div className="col-md-6">
                         <div className="form-group">
-                       <button className='bg-blue btn-lg  bg-big'>Save</button>
+                       <button  onClick={changepassword} className='bg-blue btn-lg  bg-big'>Save</button>
                         </div>
                     </div>
             </div>

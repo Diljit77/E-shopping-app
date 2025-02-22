@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
+import ImageUpload from "../models/imageupload.js";
 import cloudinary from "cloudinary"
 cloudinary.v2;
  cloudinary.config({
@@ -10,7 +11,15 @@ cloudinary.v2;
     api_secret:process.env.API_SECRET,
 })
 import multer from "multer"
-
+const storage=multer.diskStorage({
+    destination:function(req,file,cb){
+        cb(null,"uploads");
+    },
+    filename:function (req,file,cb){
+  cb(null,`${Date.now()}_${file.originalname}`);
+    }
+})
+let imgArr=[];
 const upload=multer({storage:storage})
 const router=express.Router();
 router.post("/signup",async (req,res)=>{
@@ -101,7 +110,7 @@ router.get("/get/count",async (req,res) => {
     })
 })
 router.post("/upload",upload.array("images"),async (req,res) => {
-    imageArrr=[];
+   let imageArrr=[];
     try {
         for(let i=0;i<req?.files?.length;i++){
             const options={
@@ -115,11 +124,14 @@ fs.unlnkSync(`uploads/${req.files[i].filename}`);
 
             })
         }
-      let imagesupload=new imageUpload({
+      let imagesupload=new ImageUpload({
         images:imageArrr,
-      })
+      });
+    imagesupload=await imagesupload.save();
+    return res.status(200).json(imageArrr)
     } catch (error) {
-        
+        console.log(error)
+        res.status(500).json({message:error})
     }
 
 })
@@ -136,7 +148,8 @@ router.put("/:id",async (req,res) => {
         name:name,
         phone:phone,
         password:newpasword,
-        email:email
+        email:email,
+        images:imgArr,
     },{new:true})
     if(!user){
 return res.status(400).send("the user cannot be updated")
