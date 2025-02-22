@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import express from "express";
 import jwt from "jsonwebtoken";
 
-import bcrypt from "bcrypt" 
+import bcrypt from "bcryptjs" 
 import ImageUpload from "../models/imageupload.js";
 import cloudinary from "cloudinary"
 cloudinary.v2;
