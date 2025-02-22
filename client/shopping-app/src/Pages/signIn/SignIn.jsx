@@ -68,6 +68,7 @@ if( await res.status !==false){
   
 setTimeout(()=>{
   setLoading(false);
+
   window.location.href="/";
 })
     
@@ -81,7 +82,7 @@ setTimeout(()=>{
 
     })
   }
-})
+}).catch(errr=>console.log(errr))
 } catch (error) {
   console.log(error)
   setLoading(false)
@@ -121,10 +122,10 @@ setTimeout(()=>{
               <a className="border-effect cursor mt-3">Forget Password?</a>
             </div>
             <div className="form-group d-flex ">
-              <Link className='w-100'> <button onClick={signin} className='bg-blue btn-lg  bg-big  col w-100' >
+              <Link to={"/"}  className='w-100'> <button onClick={signin} className='bg-blue btn-lg  bg-big  col w-100' >
                 { Loading===true? <CircularProgress /> : "Sign In"
 }</button></Link>
-              <Link to={"/"} className='w-100' ><button onClick={() => context.setisHeaderFooter(true)} className=' bg-big  col w-100 ml-1' >Cancel</button></Link>
+              <Link className='w-100' ><button onClick={() => context.setisHeaderFooter(true)} className=' bg-big  col w-100 ml-1' >Cancel</button></Link>
 
             </div>
             <div className="form-group">

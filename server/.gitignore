@@ -1,0 +1,12 @@
+# Ignore environment files
+.env
+
+# Ignore node_modules
+node_modules/
+
+# Ignore log files
+logs/
+*.log
+
+# Ignore database files (if any)
+database.sqlite

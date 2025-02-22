@@ -1,9 +1,9 @@
-import "dotenv"
-import axios from "axios"
 
+import axios from "axios"
+const baseurl=import.meta.env.VITE_BASE_URL;
  export const fetchDataFromApi=async (url)=>{
     try{
-        const {data}=await axios.get(`http://localhost:5100${url}`)
+        const {data}=await axios.get(`${baseurl}${url}`)
         return data
     }catch(err){
         console.log(err);
@@ -12,7 +12,7 @@ import axios from "axios"
  }
  export const PostData=async(url,FormData)=>{
     try{
-       const response =await fetch(`${process.env.REACT_BASE}${url}`,{
+       const response =await fetch(`${baseurl}${url}`,{
         method:'POST',
         headers:{
             "Content-Type":"application/json"
