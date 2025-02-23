@@ -26,7 +26,7 @@ function HomeCart(props) {
                     modules={[Navigation]}
                     className="mySwiper" >
                      
-                        {  Array.isArray(catData) &&
+                        { 
                             props?.catData?.length!==0 && props?.catData.map((Cat,index)=>{
                                 return (
                                     <SwiperSlide key={index}>

@@ -18,6 +18,8 @@ import WIshList from "./Components/myList/myList"
 import Checkout from "./Pages/Checkout/Checkout"
 import Search from "./Pages/Search/Search"
 import Account from "./Pages/Account/Acount"
+import VerifyOtp from "./Pages/signIn/VerifyOtp"
+import Changepassword from "./Pages/signIn/Changepassword"
 
 const MyContext=createContext();
 
@@ -128,6 +130,8 @@ const userData=JSON.parse(localStorage.getItem("user"));
         <Route path="/cart" exact={true} element={<Cart />} />
         <Route path="/signin" exact={true} element={<SignIn />} />
         <Route path="/signup" exact={true} element={<Signup />} />
+        <Route path="/changepassword" exact={true} element={<Changepassword />} />
+        <Route path="/verify" exact={true} element={<VerifyOtp />} />
         <Route path="/myList" exact={true} element={<WIshList />} />
         <Route path="/checkout" exact={true} element={<Checkout />} />
         <Route path="/search" exact={true} element={<Search />} />

@@ -6,7 +6,7 @@ const userSchema=mongoose.Schema({
     },
     phone:{
         type:String,
-        required:true,
+       
   
     },
     images:[
@@ -20,9 +20,20 @@ required:true
         required:true,
         unique:true
     },
+    isVerfied:{
+type:Boolean,
+default:false
+    },
+    otp:{
+type:String
+    },
+    otpexpires:{
+        type:Date,
+        default:Date.now
+            },
      password:{
         type:String,
-        required:true
+    
     },
 
 

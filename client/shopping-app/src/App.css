@@ -1082,4 +1082,16 @@ font-weight: 400;
     z-index: 1000;
     opacity: 0;
 }
+.loginwithGoogle{
+    width: 100%;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+.loginwithGoogle img{
+width: 40px;
+margin-right: 10px;
+cursor: pointer;
+
+}
 

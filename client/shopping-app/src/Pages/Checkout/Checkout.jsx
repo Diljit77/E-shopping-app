@@ -4,11 +4,14 @@ import { MyContext } from '../../App';
 import React, { useEffect, useState } from 'react'
 import { fetchDataFromApi } from '../../utils/api';
 
+import Razorpay from 'razorpay';
 
 
 function Checkout() {
     const context=useContext(MyContext);
 const [cartdata,setcartdata]=useState([]);
+const [totalamount,settotalamount]=useState();
+
    useEffect(() => {
       
     fetchDataFromApi("/api/cart/").then((res)=>{
@@ -35,6 +38,7 @@ const onchangeinput=(e)=>{
 }
  const placeorder=(e)=>{
     e.preventDefault();
+    settotalamount(cartdata.length!==0 && cartdata.map((item)=>   parseInt(item?.price)*item?.Quantiy).reduce((total,value)=>total+value,0));
     console.log(formfield)
     if(formfield.fullname==""){
         context.setalertbox({
@@ -111,6 +115,47 @@ const addressinfo={
         }
     )
 }
+var options={
+    key:import.meta.env.VITE_RAZORPAY_API_KEY,
+ key_secret:import.meta.env.VITE_REZORPAY_API_SECRET,
+ amount:parseInt(totalamount*100),
+ currency:"INR",
+ order_receipt:`order_rcptid_`+formfield.name,
+ name:"E-Bharart",
+ description:"for testing prupose",
+ handle:function (response){
+const paymentid=response.razorpay_payment_id
+const user=JSON.parse(localStorage.getItem("user"))
+const payload={
+    data:{
+        name:addressinfo.name,
+        phonenumber:formfield.phonenumber,
+        address:addressinfo.address,
+   pincode:addressinfo.pincode,
+amount:parseInt(totalamount*100),
+paymentId:paymentid,
+email:user.email,
+userid:user.userId,
+products:cartdata,
+date:new Date().toLocaleString(
+    "en-Us",{
+        month:"short",
+        day:"2-digit",
+        year:"numeric"
+    }
+)
+
+
+    }
+}
+
+ },
+ theme:{
+color:"#3399cc"
+ }
+}
+const pay= window.Razorpay(options);
+pay.open();
  }
   
     return (

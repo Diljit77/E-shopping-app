@@ -12,6 +12,7 @@ cloudinary.v2;
     api_secret:process.env.API_SECRET,
 })
 import multer from "multer"
+import { sendEmail } from "../utils/sendEmail.js";
 const storage=multer.diskStorage({
     destination:function(req,file,cb){
         cb(null,"uploads");
@@ -23,31 +24,104 @@ const storage=multer.diskStorage({
 let imgArr=[];
 const upload=multer({storage:storage})
 const router=express.Router();
+const sendEmailFun=async(to,subject,text,html)=>{
+    const result =await sendEmail(to,subject,text,html);
+    if(result.success){
+        return true
+    }else{
+        return false
+    }
+}
 router.post("/signup",async (req,res)=>{
     const {name, phone, email,password}=req.body;
     try {
       const existUser= await User.findOne({email:email});
       if(existUser){
-        res.status(400).json({message:"user already exist"});
+        return  res.status(406).json({message:"user already exist",success:false});
+ 
+       }  
+      const verfiyCode=Math.floor(100000+Math.random()*900000).toString();
+     
 
-      }  
       const hashpassword=await bcrypt.hash(password,10);
       const result=await User.create({
         name:name,
         phone:phone,
         email:email,
-        password:hashpassword
+        password:hashpassword,
+        otp:verfiyCode,
+        otpexpires:Date.now()+600000
       })
-      const token=jwt.sign({email:result.email,id:result._id},process.env.JSON_WEB_TOKEN_KEY);
+    
+   
+      const resp=sendEmailFun(email,"verify Email","","Your OTP is "+verfiyCode)
+      const token=jwt.sign({email:result.email,id:result._id},process.env.JSON_WEB_TOKEN_KEY)
       res.status(200).json({
         user:result,
         token:token,
+        success:true
       })
     } catch (error) {
         console.log(error);
-        res.status(500).json({message:"something went wrong"})
+        res.status(500).json({message:"something went wrong",success:false})
     }
 
+})
+router.post("/forgetpassword",async (req,res) => {
+    const {email}=req.body;
+    try {
+        const verfiyCode=Math.floor(100000+Math.random()*900000).toString();
+        let user;
+        const existUser= await User.findOne({email:email});
+        if(!existUser){
+         return   res.json({status:"FAILED",message:"User is not exist"})
+        }
+        if(existUser){
+            existUser.otp=verfiyCode;
+            existUser.otpexpires=Date.now()+600000;
+            await existUser.save();
+       
+        }
+        const resp=sendEmailFun(email,"verify Email","","Your OTP is "+verfiyCode);
+        return res.status(200).json({
+            success:true,
+            status:"success",
+            message:"OTP send"
+        })
+    } catch (error) {
+    
+        console.log(error)
+    }
+
+    
+
+})
+router.post("/verifyemail",async (req,res)=>{
+    try {
+        const {email,otp}=req.body;
+        const user=await User.findOne({email:email});
+        if(!user){
+  return res.status(400).json({success:false,message:"User not Found"});
+        }
+        const isCodevalid=user.otp===otp;
+        const isnotexpired=user.otpexpires>Date.now();
+        if(isCodevalid && isnotexpired){
+            user.isVerfied=true;
+            user.otp=null;
+            user.otpexpires=null;
+            await user.save();
+            return res.status(200).json({success:true,message:"Email is verified Succesfully"})
+
+        }else if(!isCodevalid){
+            res.json({success:false,message:"invalid otp"})
+        }else{
+            res.status(400).json({success:false,message:"otp expired"})
+        }
+    } catch (error) {
+        console.log("Error is verifyed",error);
+        res.status(500).json({success:false,message:"Error in veryfing email"})
+        
+    }
 })
 router.get("/:id",async (req,res) => {
     const user=await User.findById(req.params.id);
@@ -66,9 +140,11 @@ router.post("/signin",async (req,res) => {
     if(!existUser){
       return res.status(404).json({ status:false, message:"User not found"})
     }
+    if(existUser.isVerfied===false){
+        res.status(404).json({error:true,isVerify:false,message:"Your account is not verified"})    }
     const matchpassword=await bcrypt.compare(password,existUser.password);
     if(!matchpassword){
-        return res.status(402).json({ status:false,message:"invalid Credentials"});
+        return res.status(202).json({ status:false,message:"invalid Credentials"});
     }
     const token=jwt.sign({email:existUser.email,id:existUser._id},process.env.JSON_WEB_TOKEN_KEY);
     res.status(200).json({
@@ -168,5 +244,61 @@ router.delete("/deleteimages",async (req,res) => {
     if(response){
         res.status(200).send(response)
     }
+})
+router.post("/loginwithgoogle",async (req,res) => {
+    const {name,email,phone,password, images}=req.body;
+    try {
+        const existUser=await User.findOne({email:email})
+        if(!existUser){
+            const result=await User.create({
+                name:name,
+                phone:phone,
+                email:email,
+                images:images,
+                password:password
+            })
+            const token=jwt.sign({email:result.email,id:result._id},process.env.JSON_WEB_TOKEN_KEY);
+            return res.status(200).send({
+                user:result,
+                token:token,
+                msg:"user Login Succesgully"
+            })
+          
+
+        }else{
+            const existuser=await User.findOne({email:email});
+            const token=jwt.sign({email:existuser.email,id:existuser._id},process.env.JSON_WEB_TOKEN_KEY);
+            return res.status(200).send({
+                user:existuser,
+                token:token,
+                msg:"user Login Succesgully"
+            })
+            
+        }
+    } catch (error) {
+        console.log(error)
+    }
+})
+router.post("/changepassword",async (req,res)=>{
+    const { email,password}=req.body;
+    try {
+      const existUser= await User.findOne({email:email});
+      if(existUser){
+        const hashpassword=await bcrypt.hash(password,10);
+    existUser.password=hashpassword;
+    await existUser.save();
+  res.status(200).json({
+          user:existUser,
+       
+          success:true,
+        status:"success",
+    message:"password is changed Succesfully"        })
+      }
+    
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:"something went wrong",success:false})
+    }
+
 })
 export default router
