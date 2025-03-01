@@ -1094,4 +1094,15 @@ margin-right: 10px;
 cursor: pointer;
 
 }
+.order-table td ,.order-table th{
+white-space: nowrap;
+}
+.order-table .img{
+    width: 70px;
+    height: 60px;
+    overflow: hidden;
+}
+.order-table .img img{
+    width: 100%;
+}
 

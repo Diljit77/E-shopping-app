@@ -127,6 +127,8 @@ Due to the covid 19, orders may be proceeds with a delay
         </MenuItem>
         </Link>
         <Divider />
+        <Link to={"/orders"}>
+      
         <MenuItem onClick={handleClose}>
         <ListItemIcon>
           <FaClipboardCheck />
@@ -136,6 +138,7 @@ Due to the covid 19, orders may be proceeds with a delay
           
        
         </MenuItem>
+        </Link>
         <Link to={"/myList"} style={{textDecoration:"none"}} >
      
         <MenuItem onClick={handleClose}>

@@ -20,6 +20,7 @@ import Search from "./Pages/Search/Search"
 import Account from "./Pages/Account/Acount"
 import VerifyOtp from "./Pages/signIn/VerifyOtp"
 import Changepassword from "./Pages/signIn/Changepassword"
+import Orders from "./Pages/Order/Orders"
 
 const MyContext=createContext();
 
@@ -136,6 +137,7 @@ const userData=JSON.parse(localStorage.getItem("user"));
         <Route path="/checkout" exact={true} element={<Checkout />} />
         <Route path="/search" exact={true} element={<Search />} />
         <Route path="/myaccount" exact={true} element={<Account />} />
+        <Route path="/orders" exact={true} element={<Orders />} />
       </Routes>
       {
         isHeaderFooter===true && <Footer />

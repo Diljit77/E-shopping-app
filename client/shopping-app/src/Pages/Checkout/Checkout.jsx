@@ -2,12 +2,14 @@ import { TextField } from '@mui/material'
 import { useContext } from 'react';
 import { MyContext } from '../../App';
 import React, { useEffect, useState } from 'react'
-import { fetchDataFromApi } from '../../utils/api';
+import { fetchDataFromApi, PostData } from '../../utils/api';
+import { useNavigate } from 'react-router-dom';
 
-import Razorpay from 'razorpay';
+
 
 
 function Checkout() {
+const history=useNavigate();
     const context=useContext(MyContext);
 const [cartdata,setcartdata]=useState([]);
 const [totalamount,settotalamount]=useState();
@@ -123,37 +125,30 @@ var options={
  order_receipt:`order_rcptid_`+formfield.name,
  name:"E-Bharart",
  description:"for testing prupose",
- handle:function (response){
+ handler: function (response){
 const paymentid=response.razorpay_payment_id
 const user=JSON.parse(localStorage.getItem("user"))
 const payload={
-    data:{
-        name:addressinfo.name,
-        phonenumber:formfield.phonenumber,
-        address:addressinfo.address,
-   pincode:addressinfo.pincode,
+    name:addressinfo.name,
+    phonenumber:formfield.phonenumber,
+    address:addressinfo.address,
+pincode:addressinfo.pincode,
 amount:parseInt(totalamount*100),
 paymentId:paymentid,
 email:user.email,
 userid:user.userId,
 products:cartdata,
-date:new Date().toLocaleString(
-    "en-Us",{
-        month:"short",
-        day:"2-digit",
-        year:"numeric"
-    }
-)
-
-
-    }
 }
 
+console.log(payload)
+PostData("/api/orders/create",payload).then((res)=>{
+    history("/");}).catch(err=>console.log(err));
  },
  theme:{
 color:"#3399cc"
  }
 }
+
 const pay= window.Razorpay(options);
 pay.open();
  }

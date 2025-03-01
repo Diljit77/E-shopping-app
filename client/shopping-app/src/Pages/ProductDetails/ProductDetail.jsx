@@ -198,7 +198,7 @@ context.addtocart(cart)
                                     <button className={`${activetabs === 1 && 'active'}`} onClick={() => setActivetabs(1)}>Additional Info</button>
                                 </li>
                                 <li className="list-inline-item">
-                                    <button className={`${activetabs === 2 && 'active'}`} onClick={() => setActivetabs(2)}>Review(3)</button>
+                                    <button className={`${activetabs === 2 && 'active'}`} onClick={() => setActivetabs(2)}>Review({ReviewData.length})</button>
                                 </li>
 
                             </ul>

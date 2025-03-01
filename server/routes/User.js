@@ -37,7 +37,7 @@ router.post("/signup",async (req,res)=>{
     try {
       const existUser= await User.findOne({email:email});
       if(existUser){
-        return  res.status(406).json({message:"user already exist",success:false});
+        return  res.json({message:"user already exist",success:false});
  
        }  
       const verfiyCode=Math.floor(100000+Math.random()*900000).toString();
@@ -138,13 +138,13 @@ router.post("/signin",async (req,res) => {
     const existUser=await User.findOne({email:email});
     console.log(existUser)
     if(!existUser){
-      return res.status(404).json({ status:false, message:"User not found"})
+      return res.json({ status:false, message:"User not found"})
     }
     if(existUser.isVerfied===false){
-        res.status(404).json({error:true,isVerify:false,message:"Your account is not verified"})    }
+        res.json({error:true,isVerify:false,message:"Your account is not verified"})    }
     const matchpassword=await bcrypt.compare(password,existUser.password);
     if(!matchpassword){
-        return res.status(202).json({ status:false,message:"invalid Credentials"});
+        return res.json({ status:false,message:"invalid Credentials"});
     }
     const token=jwt.sign({email:existUser.email,id:existUser._id},process.env.JSON_WEB_TOKEN_KEY);
     res.status(200).json({

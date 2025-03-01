@@ -14,8 +14,11 @@ import ReviewRoute from "./routes/Reviews.js"
 import cartRoute from "./routes/Cart.js"
 import MyRoute from "./routes/myList.js"
 import SerachRoute from "./routes/Serach.js"
+import OrderRoute from "./routes/Orders.js"
 app.use(cors());
-app.options('*',cors());
+app.options('*',cors({
+    origin:"http://localhost:5173"
+}));
 const port=process.env.port||process.env.PORT;
 // middleware
 app.use(bodyParser.json());
@@ -29,6 +32,7 @@ app.use("/api/review",ReviewRoute);
 app.use("/api/cart",cartRoute);
 app.use("/api/myList",MyRoute);
 app.use("/api/search",SerachRoute);
+app.use("/api/orders",OrderRoute);
 app.use(authJwt());
 //monogdb
 
