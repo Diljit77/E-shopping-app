@@ -36,11 +36,14 @@ setisOpenProductModal({
 });
   }
   useEffect(() => {
-    fetchDataFromApi(`/api/product/${isOpenProductModal.id}`).then((res)=>{
-      setProductData(res);
-      
-
-    }).catch((err)=>console.log(err))
+    setTimeout(() => {
+      fetchDataFromApi(`/api/product/${isOpenProductModal.id}`).then((res)=>{
+        setProductData(res);
+        
+  
+      }).catch((err)=>console.log(err))
+    }, 2000);
+ 
   
     
   }, [isOpenProductModal]);

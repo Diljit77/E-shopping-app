@@ -29,7 +29,7 @@ function Search() {
     },[context.searchData])
     const filterdata=(subcatId)=>{
         fetchDataFromApi(`/api/product?subcatId=${subcatId}`).then((res)=>{
-            // setProductData(res);
+            setProductData(res.products);
       
               })  
     }
@@ -52,7 +52,7 @@ function Search() {
     }
     const filterByrating=(rating,subcatId)=>{
         fetchDataFromApi(`/api/product?rating=${rating}&subcatId=${subcatId}`).then((res)=>{
-        //    setProductData(res);
+           setProductData(res.products);
       
               }) 
              }

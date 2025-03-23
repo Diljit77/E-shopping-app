@@ -19,6 +19,23 @@ router.get("/",async (req,res) => {
         "page":Page
     })
 })
+router.get("/userorder/:id",async (req,res) => {
+    try {
+        const order=await Order.find({userid:req.params.id});
+        if(!order){
+            return res.status(404).json({message:"No Order found"});
+        }
+        return res.status(200).json({
+            "orderList":order,
+            "totalpages":totalPages,
+            "page":Page
+        })
+    } catch (error) {
+        
+    }
+   
+
+})
 router.get("/:id",async (req,res) => {
     const order=await Order.findById(req.params.id);
     if(!order){

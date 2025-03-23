@@ -28,18 +28,28 @@ function ProductDetail() {
     customerId:""
 
     });
-  
+    function formatDate(isoString) {
+        const date = new Date(isoString);
+        const options = { month: 'short', year: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
     const [rating,setrating]=useState(1)
     const {id}=useParams();
     const [Id,setId]=useState(id)
     const [activetabs, setActivetabs] = useState(0)
     useEffect(() => {
-      fetchDataFromApi(`/api/product/${id}`).then((res)=>{
-            setProductData(res);
-             }).catch((err)=>console.log(err))
-             fetchDataFromApi(`/api/review?productId=${id}`).then((res)=>{
+        setTimeout(() => {
+            fetchDataFromApi(`/api/product/${id}`).then((res)=>{
+                setProductData(res);
+                 }).catch((err)=>console.log(err))
+          }, 2000);
+          setTimeout(() => {
+            fetchDataFromApi(`/api/review?productId=${id}`).then((res)=>{
                 setReviewData(res)
             })
+          }, 3000);
+     
+         
 
       
 })
@@ -64,8 +74,17 @@ const addreview=(e)=>{
     review.customerId=user?.userId
     review.productId=id;
     console.log(review)
+if(!review.customerId){
+    setIsLoading(false)
+       context.setalertbox({
+        msg:"Please Login for adding review",
+   open:true,
+   error:true,
 
-  if(review.customerId!==""){
+})
+return null;
+    }
+ if(review.customerId!==""){
     PostData("/api/review/add",review).then((res)=>{
         setIsLoading(false)
         
@@ -73,7 +92,7 @@ const addreview=(e)=>{
         fetchDataFromApi(`/api/review?productId=${id}`).then((res)=>{
             setReviewData(res)
         })
-    console.log("add",res)
+    // console.log("add",res)
     }).catch(err=>{
     
         context.setalertbox({
@@ -85,12 +104,14 @@ const addreview=(e)=>{
         setIsLoading(false)
         console.log(err)})
   }else{
+    setIsLoading(false);
     context.setalertbox({
         msg:"Please Login for adding review",
    open:true,
    error:true,
 
  })
+
 
   }
 
@@ -113,6 +134,15 @@ context.addtocart(cart)
  }
   const addtomyList=(id)=>{
     const user=JSON.parse(localStorage.getItem("user"));
+    if(!user){
+        context.setalertbox({
+            msg:"please Login",
+        open:true,
+        error:true,
+        
+        })
+        return null;
+    }
     if(user){
       const data={
         productName:productdata?.name,
@@ -160,9 +190,10 @@ context.addtocart(cart)
                                     </div>
                                 </li>
                                 <li className="list-inline-item">
-                                    <Rating name='read-only' value={productdata?.rating} precision={0.5} size='small' readOnly />
+                                  
+                                    <Rating name='read-only' value={3} precision={0.5} size='small' readOnly />
                           
-                                    <span className='text-light cursor ml-2'> {productdata?.numReviews} Review</span>
+                                    <span className='text-light cursor ml-2'> {ReviewData.length} Review</span>
                                 </li>
 
                             </ul>
@@ -241,11 +272,12 @@ context.addtocart(cart)
                                 activetabs===2 && <div className="tabContent">
                                     <div className="row">
                                         <div className="col-md-8">
-                                            <h3>Questions & answers</h3>
+                                            <h3>Reviews</h3>
                                             <br />
 
                                               {
                                                 ReviewData.length!==0 && ReviewData?.map((item,index)=>{
+
                                                  return(
                                                     <div className="card mt-3 p-4 reviewsCard flex-row shadow" key={index}>
                                                         <div className="info pl-5">
@@ -257,7 +289,7 @@ context.addtocart(cart)
                                                             </div>
                                                           
                                                             <h6>{item?.review}</h6>
-                                                            <p className='text-light'>{item?.dataCreated}</p>
+                                                            <p className='text-light'>{formatDate(item?.dataCreated)}</p>
                                                         </div>
                                                     </div>
                                                  )

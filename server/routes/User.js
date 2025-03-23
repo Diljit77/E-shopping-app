@@ -1,7 +1,6 @@
 import User from "../models/User.js";
 import express from "express";
 import jwt from "jsonwebtoken";
-
 import bcrypt from "bcryptjs" 
 import ImageUpload from "../models/imageupload.js";
 import cloudinary from "cloudinary"
@@ -13,6 +12,17 @@ cloudinary.v2;
 })
 import multer from "multer"
 import { sendEmail } from "../utils/sendEmail.js";
+import crypto from "crypto";
+
+const generatePassword = (length = 12) => {
+    return crypto.randomBytes(length)
+        .toString("base64") // Convert to a readable format
+        .slice(0, length) // Trim to required length
+        .replace(/[^a-zA-Z0-9]/g, "A"); // Replace special chars (optional)
+};
+
+ // Example: "kdf84ABd29Xp"
+
 const storage=multer.diskStorage({
     destination:function(req,file,cb){
         cb(null,"uploads");
@@ -32,6 +42,7 @@ const sendEmailFun=async(to,subject,text,html)=>{
         return false
     }
 }
+
 router.post("/signup",async (req,res)=>{
     const {name, phone, email,password}=req.body;
     try {
@@ -82,7 +93,12 @@ router.post("/forgetpassword",async (req,res) => {
             await existUser.save();
        
         }
-        const resp=sendEmailFun(email,"verify Email","","Your OTP is "+verfiyCode);
+        const resp=sendEmailFun(email,"verify Email","", `Dear User,<br><br>
+            Your One-Time Password (OTP) for verification is: <b>${verfiyCode}</b><br><br>
+            This OTP is valid for <b>5 minutes</b>. Please do not share this code with anyone.<br><br>
+            If you did not request this, please ignore this email.<br><br>
+            Best regards,<br>
+            Bluestock`);
         return res.status(200).json({
             success:true,
             status:"success",
@@ -136,13 +152,15 @@ router.post("/signin",async (req,res) => {
     console.log(password,email);
  try {
     const existUser=await User.findOne({email:email});
-    console.log(existUser)
+    // console.log(existUser)
     if(!existUser){
       return res.json({ status:false, message:"User not found"})
     }
     if(existUser.isVerfied===false){
-        res.json({error:true,isVerify:false,message:"Your account is not verified"})    }
-    const matchpassword=await bcrypt.compare(password,existUser.password);
+      return  res.json({error:true,isVerify:false,message:"Your account is not verified",status:false})  
+      }
+ 
+        const matchpassword=await bcrypt.compare(password,existUser.password);
     if(!matchpassword){
         return res.json({ status:false,message:"invalid Credentials"});
     }
@@ -185,6 +203,24 @@ router.get("/get/count",async (req,res) => {
     res.send({
         usercount:usercount
     })
+})
+router.post("/forgetpassword/changepassword",async (req,res) => {
+    const {email,newPass}=req.body;
+    try {
+        const user=await User.findOne({email:email});
+        if(!user){
+           return  res.status(404).json({message:"User not found" ,success:false})
+
+        }
+        const hashpassword=await bcrypt.hash(newPass,10);
+        user.password=hashpassword;
+        await  user.save();
+
+        return res.status(200).json({message:"Password Updated succesfully",success:true })
+    } catch (error) {
+        res.status(500).json({message:err.message})
+        console.log(error)
+    }
 })
 router.post("/upload",upload.array("images"),async (req,res) => {
    let imageArrr=[];
@@ -246,9 +282,14 @@ router.delete("/deleteimages",async (req,res) => {
     }
 })
 router.post("/loginwithgoogle",async (req,res) => {
-    const {name,email,phone,password, images}=req.body;
+    let {name,email,phone,password, images}=req.body;
     try {
         const existUser=await User.findOne({email:email})
+        if(password===null|| password===undefined){
+            password=generatePassword();
+        sendEmailFun(email,"Default password","", `Dear User,<br><br>
+                your default password is ${password}, please change your password in the account section for security`);
+        }
         if(!existUser){
             const result=await User.create({
                 name:name,
@@ -279,21 +320,44 @@ router.post("/loginwithgoogle",async (req,res) => {
         console.log(error)
     }
 })
-router.post("/changepassword",async (req,res)=>{
-    const { email,password}=req.body;
+router.put("/changepassword/:id",async (req,res)=>{
+    const { email,password,phone,name,newpass,images}=req.body;
     try {
       const existUser= await User.findOne({email:email});
-      if(existUser){
-        const hashpassword=await bcrypt.hash(password,10);
-    existUser.password=hashpassword;
-    await existUser.save();
-  res.status(200).json({
-          user:existUser,
-       
-          success:true,
-        status:"success",
-    message:"password is changed Succesfully"        })
-      }
+    if(!existUser){
+      return  res.json({error:true,msg:"User Not found",success:false})
+    }
+ console.log(existUser)
+    const matchpassword=await bcrypt.compare(password,existUser.password);
+let newpassword
+
+if(!matchpassword){
+    return res.json({ success:false,message:"password is incorrect"});
+}
+   if(newpass){
+    newpassword=bcrypt.hashSync(newpass,10);
+
+   }else{
+    newpass=existUser.password
+   }
+   
+           const user=await User.findByIdAndUpdate(req.params.id,{
+
+            name:name,
+            phone:phone,
+            email:email,
+            password:newpassword,
+            images:images 
+        },
+        {
+            new:true
+        }
+    )
+    if(!user){
+    return  res.json({message:"the user is not updated",success:false})
+    }
+    return res.status(200).json({success:true,message:"Updated successfully"})
+
     
     } catch (error) {
         console.log(error);

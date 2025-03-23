@@ -18,7 +18,7 @@ router.post("/add",async (req,res) => {
     let carts=await Cart.find({productId:req.body.productId});
 
     if(carts.length!==0){
-res.status(500).json({ status:false,message:"the product is alredy added"})
+ return res.status(500).json({ status:false,message:"the product is alredy added"})
     }else{
 
     
@@ -35,7 +35,7 @@ res.status(500).json({ status:false,message:"the product is alredy added"})
     })
     cart=cart.save();
     if(!cart){
-        res.status(500).json({message:"Somehing Wrong",status:false})
+        res.status(500).json({message:"Something Wrong",status:false})
     }
     res.status(201).json(cart)
 }
@@ -84,7 +84,17 @@ router.put("/:id", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
+router.get("/usercart/:id",async (req,res) => {
+    try {
+        const cart=await Cart.find({userId:req.params.id});
+        if(!cart){
+            res.status(500).json({success:false, message:"There is no product"})
+        }
+        res.status(200).json(cart);
+    } catch (error) {
+        res.status(500).json({message:err,success:false})
+    }
+})
 // Delete Cart Route
 router.delete("/:id", async (req, res) => {
     try {

@@ -3,7 +3,7 @@ import axios from "axios"
 const baseurl=import.meta.env.VITE_BASE_URL;
  export const fetchDataFromApi=async (url)=>{
     try{
-        const {data}=await axios.get(`${baseurl}${url}`)
+        const {data}=await axios.get(`${baseurl}${url}`,{timeout:100000})
         return data
     }catch(err){
         console.log(err);
@@ -32,18 +32,18 @@ const baseurl=import.meta.env.VITE_BASE_URL;
     }
     export const editData=async (url, updateData)=>{
         try {
-           const {res}=await axios.put(`${process.env.REACT_BASE}${url}`,updateData);
-           return res; 
+           const res=await axios.put(`${baseurl}${url}`,updateData);
+           return res.data; 
         } catch (err) {
             console.log(err)
-            return err
+            return err;
         }
     }
     export  const deleteData= async (url)=>{
 try {
     let token=(localStorage.getItem("token"));
     console.log(token)
-    const {res}= await axios.delete(`${process.env.REACT_BASE}${url}`,{
+    const {res}= await axios.delete(`${baseurl}${url}`,{
         headers:{
             "Authorization":`Bearer ${token}`,
          "Content-Type":"application/json"
@@ -52,15 +52,15 @@ try {
     return res;
 } catch (err) {
     console.log(err)
-    return err
+    return err;
     
 }
     }
     export const uploadImage = async (url,formdata) => {
-        const {res}=await axios.post(process.env.REACT_BASE+url,formdata);
+        const {res}=await axios.post(baseurl+url,formdata);
         return res;
     }
     export const deleteImage = async (url,formdata) => {
-        const {res}=await axios.delete(`${process.env.REACT_BASE}${url}`,formdata);
+        const {res}=await axios.delete(`${baseurl}${url}`,formdata);
         return res;
     }

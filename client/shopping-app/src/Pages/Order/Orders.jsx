@@ -10,9 +10,15 @@ function Orders() {
 
     useEffect(()=>{
         window.scrollTo(0,0);
-        fetchDataFromApi("/api/orders/").then((res)=>{
-            setorders(res);
-        })
+        setTimeout(() => {
+            const user=JSON.parse(localStorage.getItem("user"));
+            let userId=user?.userId
+            fetchDataFromApi(`/api/orders/`).then((res)=>{
+                setorders(res);
+            }).catch((err)=>console.log(err))
+    
+          }, 3000);
+        
     },[]);
     const showproducts =(id)=>{
 fetchDataFromApi(`/api/orders/${id}`).then((res)=>{

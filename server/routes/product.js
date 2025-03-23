@@ -69,7 +69,7 @@ router.get("/featured",async (req,res) => {
 router.get("/:id",async (req,res) => {
     const product=await Product.findById(req.params.id);
     if(!product){
-        res.status(402).json({message:"the id is not exist"})
+       return res.status(402).json({message:"the id is not exist"})
     }
     return res.status(200).json(product)
 
@@ -183,5 +183,18 @@ router.put("/:id", async (req, res) => {
         }
     )
 
+})
+router.get("/category/:id",async (req,res) => {
+    try{
+     
+    const product=await Product.find({category:req.params.id});
+    if(!product){
+    return res.status(404).json({success:false,message:"no product exists"})
+    }
+    res.send(product);
+}catch(err){
+    console.log(err)
+    res.status(500).json({success:false,message:"something went wrong"})
+}
 })
 export default router;

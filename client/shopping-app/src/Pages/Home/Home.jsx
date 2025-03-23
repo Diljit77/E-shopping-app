@@ -7,19 +7,47 @@ import HomeCart from './HomeCart';
 
 function Home() {
   const [catData,setCatData]=useState([]);
+  const controller = new AbortController(); 
   const [featuredProducts,setFeaturedProducts]=useState([]);
   const [productsdata,setProductData]= useState([]);
 useEffect(() => {
-  fetchDataFromApi("/api/category/").then((res)=>{
-   // console.log(res);
-setCatData(res);
-  }).catch((err)=>console.log(err));
-  fetchDataFromApi("/api/product/featured").then((res)=>{
-    setFeaturedProducts(res)
-  })
-  fetchDataFromApi("/api/product?perPage=12&catName=Fashion").then((res)=>{
-    setProductData(res);
-  })
+      if(catData.length===0){
+        setTimeout(() => {
+          if(catData.length===0){
+            fetchDataFromApi("/api/category/",{signal:controller.signal}).then((res)=>{
+          
+              setCatData(res);
+                }).catch((err) => {
+                    if (err.name === "AbortError") {
+                      console.log("Request aborted due to component unmount");
+                    } else {
+                      console.error("API Error:", err);
+                    }
+                  });
+          }
+       
+         
+        }, 2000);
+            
+                  return () => {
+                    controller.abort(); // ✅ Cleanup: Cancel API request if component unmounts
+                  };
+         }
+         setTimeout(() => {
+          if(featuredProducts.length===0){
+            fetchDataFromApi("/api/product/featured").then((res)=>{
+              setFeaturedProducts(res)
+            })
+          }
+          if(productsdata.length===0){
+            fetchDataFromApi("/api/product?perPage=12&catName=Fashion").then((res)=>{
+              setProductData(res);
+            })
+          }
+        
+         
+        }, 2000);
+
 })
 
   return (

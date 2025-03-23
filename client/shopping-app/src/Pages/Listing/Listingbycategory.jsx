@@ -9,29 +9,30 @@ import { FaAngleDown } from "react-icons/fa6";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ProductItem from '../Home/ProductItem';
-import Pagination from '@mui/material/Pagination';
+
 import { useParams } from 'react-router-dom';
 import { fetchDataFromApi } from '../../utils/api';
-import { CircularProgress } from '@mui/material';
 
-function Listing() {
+function Listingbycategory() {
     const {id}=useParams();
     const [productData,setProductData]=useState([])
     useEffect(() => {
 
         setTimeout(() => {
-            fetchDataFromApi(`/api/product?subcatId=${id}`).then((res)=>{
+            fetchDataFromApi(`/api/product/category/${id}`).then((res)=>{
                 setProductData(res);
                   })
-          }, 4000);
+          }, 1000);
+        
+    
     
   
     },[id])
     const filterdata=(subcatId)=>{
-        fetchDataFromApi(`/api/product?subcatId=${subcatId}`).then((res)=>{
-            setProductData(res);
+        // fetchDataFromApi(`/api/product/category?subcatId=${subcatId}`).then((res)=>{
+        //     setProductData(res);
       
-              })  
+        //       })  
     }
     const [anchorEl, setAnchorEl] = useState(null);
     const [productView, setproductView] = useState("four")
@@ -43,18 +44,18 @@ function Listing() {
         setAnchorEl(null);
     };
     const filterByprice=(price,subcatId)=>{
-        fetchDataFromApi(`/api/product?minPrice=${price[0]}&maxPrice=${price[1]}&subcatId=${subcatId}`).then((res)=>{
-            setProductData(res.products);
+        // fetchDataFromApi(`/api/product/category?minPrice=${price[0]}&maxPrice=${price[1]}&subcatId=${subcatId}`).then((res)=>{
+        //     setProductData(res.products);
       
-              })  
+        //       })  
 
                  
     }
     const filterByrating=(rating,subcatId)=>{
-        fetchDataFromApi(`/api/product?rating=${rating}&subcatId=${subcatId}`).then((res)=>{
-            setProductData(res);
+        // fetchDataFromApi(`/api/product/category?rating=${rating}&subcatId=${subcatId}`).then((res)=>{
+        //     setProductData(res);
       
-              }) 
+        //       }) 
              }
 
     return (
@@ -95,15 +96,12 @@ function Listing() {
                                 </div>
                             </div>
                             <div className="product_Listing">                           
-                                     { Array.isArray(productData) && productData.length!==0 &&
+                                     { Array.isArray(productData) &&
                                      productData?.map((item,index)=>{
                                     return(
                                         <ProductItem key={index} itemView={productView} item={item}/>  
                                     )
                                 })
-                                }
-                                {
-                                    productData.length===0 && <CircularProgress className='align-items-center mr-auto m-auto' />
                                 }
                                 
 
@@ -119,4 +117,4 @@ function Listing() {
     )
 }
 
-export default Listing
+export default Listingbycategory

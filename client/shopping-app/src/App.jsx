@@ -21,6 +21,8 @@ import Account from "./Pages/Account/Acount"
 import VerifyOtp from "./Pages/signIn/VerifyOtp"
 import Changepassword from "./Pages/signIn/Changepassword"
 import Orders from "./Pages/Order/Orders"
+import Listingbycategory from "./Pages/Listing/Listingbycategory"
+import EditReview from "./Pages/Account/EditReview"
 
 const MyContext=createContext();
 
@@ -28,6 +30,19 @@ function App() {
   const [cartdata,setCartdata]=useState([])
   const [searchData,setsearchData]=useState([])
   const [IsLogin,setIsLogin]=useState(false)
+  const [countryList,setCountryist]=useState([]);
+  useEffect(()=>{
+    setTimeout(() => {
+      getcountry("https://countriesnow.space/api/v0.1/countries/");
+    }, 3000);
+
+  },[]);
+  const getcountry= async (url)=>{
+    const response=await axios.get(url).then((res)=>{
+
+setCountryist(res.data.data);
+    })
+  }
 const [user,setuser]=useState({
 name:"",
 email:"",
@@ -36,6 +51,16 @@ userId:""
 
 const addtocart=(data)=>{
   
+  const user=JSON.parse(localStorage.getItem("user"));
+  if(!user){
+    setalertbox({
+        msg:"please Login",
+    open:true,
+    error:true,
+    
+    })
+    return null;
+}
  PostData("/api/cart/add",data).then((res)=>{
   if(res.status!==false){
     if(res!==null && res!==undefined && res!==""){
@@ -86,6 +111,7 @@ const userData=JSON.parse(localStorage.getItem("user"));
     open:false
   });
   const value={
+    setCountryist,countryList,
     isHeaderFooter,
     setisHeaderFooter,
     alertbox,
@@ -126,7 +152,7 @@ const userData=JSON.parse(localStorage.getItem("user"));
       <Routes >
         <Route path="/" exact={true} element={<Home />} />
         <Route path="/subcat/:id" exact={true} element={<Listing />} />
-        <Route path="category/:id" exact={true} element={<Listing />} />
+        <Route path="category/:id" exact={true} element={<Listingbycategory />} />
         <Route path="/product/:id" exact={true} element={<ProductDetail />} />
         <Route path="/cart" exact={true} element={<Cart />} />
         <Route path="/signin" exact={true} element={<SignIn />} />
@@ -137,6 +163,7 @@ const userData=JSON.parse(localStorage.getItem("user"));
         <Route path="/checkout" exact={true} element={<Checkout />} />
         <Route path="/search" exact={true} element={<Search />} />
         <Route path="/myaccount" exact={true} element={<Account />} />
+        <Route path="/myaccount/editreview/:id" exact={true} element={<EditReview />} />
         <Route path="/orders" exact={true} element={<Orders />} />
       </Routes>
       {

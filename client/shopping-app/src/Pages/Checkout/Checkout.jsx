@@ -12,16 +12,25 @@ function Checkout() {
 const history=useNavigate();
     const context=useContext(MyContext);
 const [cartdata,setcartdata]=useState([]);
-const [totalamount,settotalamount]=useState();
+const [totalamount,settotalamount]=useState(0);
 
    useEffect(() => {
+        const user=JSON.parse(localStorage.getItem("user"));
+          let userId=user?.userId
+          if(!user){
+              return null ;
+          }else{
+              fetchDataFromApi(`/api/cart/usercart/${userId}`).then((res)=>{
+                  setcartdata(res);
+                
+          
+              })
+          }
       
-    fetchDataFromApi("/api/cart/").then((res)=>{
-        setcartdata(res);
-      
+    settotalamount(cartdata.length!==0 && cartdata.map((item)=>   parseInt(item?.price)*item?.Quantiy).reduce((total,value)=>total+value,0));
 
-    })
-})
+    },[cartdata])
+
     const [formfield,setformfield]=useState({
   fullname:"",
   country:"",
@@ -40,7 +49,10 @@ const onchangeinput=(e)=>{
 }
  const placeorder=(e)=>{
     e.preventDefault();
-    settotalamount(cartdata.length!==0 && cartdata.map((item)=>   parseInt(item?.price)*item?.Quantiy).reduce((total,value)=>total+value,0));
+    console.log(totalamount);
+    if(totalamount===undefined){
+        settotalamount(100);
+    }
     console.log(formfield)
     if(formfield.fullname==""){
         context.setalertbox({
@@ -120,7 +132,7 @@ const addressinfo={
 var options={
     key:import.meta.env.VITE_RAZORPAY_API_KEY,
  key_secret:import.meta.env.VITE_REZORPAY_API_SECRET,
- amount:parseInt(totalamount*100),
+ amount:parseInt(totalamount*100)||100,
  currency:"INR",
  order_receipt:`order_rcptid_`+formfield.name,
  name:"E-Bharart",

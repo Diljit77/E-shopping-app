@@ -12,6 +12,7 @@ import HomeCart from './HomeCart';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { fetchDataFromApi } from '../../utils/api';
+import { CircularProgress } from '@mui/material';
 
 function Homeproducts(props) {
     const [catData, setCatData] = useState([])
@@ -30,15 +31,21 @@ function Homeproducts(props) {
     }
     const [featuredProducts, setFeaturedProducts] = useState([]);
     const [Productdata, setProductData] = useState([])
+    
     useEffect(() => {
-          fetchDataFromApi(`/api/product?perPage=12&catName=${Cat}`).then((res)=>{
-            setProductData(res);
-            console.log(Productdata)
-          })
-
-        setFeaturedProducts(props.featuredProducts)
+        setTimeout(() => {
+            fetchDataFromApi(`/api/product?perPage=12&catName=${Cat}`).then((res)=>{
+                setProductData(res);
+          
+              })
+              setFeaturedProducts(props.featuredProducts)
         
-        setCatData(props.catData)
+              setCatData(props.catData)
+          }, 3000);
+        
+         
+
+       
 
     })
 
@@ -72,11 +79,12 @@ function Homeproducts(props) {
                                         { Array.isArray(catData) &&
                                             catData?.length !== 0 && catData?.map((item, index) => {
                                                 return (
-                                                    <Tab  label={item.name} onClick={()=>selectCat(item.name)} />
+                                                    <Tab key={index} label={item.name} onClick={()=>selectCat(item.name)} />
                                                 )
 
                                             })
                                         }
+                                       
 
 
                                     </Tabs>
@@ -103,6 +111,9 @@ function Homeproducts(props) {
                                             )
                                         })
                                     }
+                                    {
+                                        Productdata.length===0 && <CircularProgress />
+                                    }
                                 </Swiper>
                             </div>
                             <div className="d-flex align-items-center mt-5">
@@ -115,7 +126,7 @@ function Homeproducts(props) {
                             </div>
                             <div className="product_row productRow-2 w-100 mt-4 d-flex">
                              
-                                {
+                                {     Array.isArray(featuredProducts) &&
                                     featuredProducts?.length !== 0 && featuredProducts?.map((item, index) => {
                                         return (
 
@@ -123,6 +134,9 @@ function Homeproducts(props) {
 
                                         )
                                     })
+                                }
+                                {
+                                    featuredProducts.length===0 && <CircularProgress />
                                 }
 
                             </div>

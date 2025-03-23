@@ -11,21 +11,42 @@ const Transistion=React.forwardRef(function Transistion(props,ref){
 })
 function CountryDrop() {
   const [countryList,setcountryList]=useState([])
+  const [selectscountry,setselectcountry]=useState("")
+  const context=useContext(MyContext);
   const filterList=(e)=>{
-e.target.value.toLoweCase();
+    e.preventDefault();
+ const keyword=e.target.value.toLowerCase();
 
-  }
-  useEffect(()=>{
-    
+ console.log(keyword);
+
+if(keyword!==""){
+  const List=countryList.filter((item)=>{
+    return item.country.toLowerCase().includes(keyword);
   })
-  const context=useContext(MyContext)
+  setcountryList(List);
+}else{
+  setcountryList(context?.countryList);
+}
+  }
+  const [selecttab,setselecttab]=useState(null);
+  useEffect(()=>{
+    setcountryList(context?.countryList);
+  },[])
+
   const [isOpenModal,setisOpenModal]=useState(false);
+  const selectcountry=(index,country)=>{
+setselecttab(index);
+
+setisOpenModal(false);
+setselectcountry(country)
+  }
+
   return (
     <div>
       <Button className="countrydrop" onClick={()=>{setisOpenModal(true)}}>
         <div className="info d-flex flex-column">
           <span className='label'>Your Location</span>
-          <span className='name'>India</span>
+          <span className='name'>{selectscountry===''?"Select Location":selectscountry}</span>
         </div>
         <span className='ml-auto'><FaAngleDown /></span>
       </Button>
@@ -39,7 +60,14 @@ e.target.value.toLoweCase();
 </div>
 <ul className="countryList">
 
-  <li><button onClick={()=>{setisOpenModal(false)}} >India</button></li>
+{
+countryList?.length!==0 && countryList.map((item,index)=>{
+return (
+  <li key={index}><button onClick={()=>{selectcountry(index,item.country)}} className={`${selecttab===index ?'active':''}`} >{item.country}</button></li>
+)
+  })
+}
+  {/* <li><button onClick={()=>{setisOpenModal(false)}} >India</button></li>
   <li><button onClick={()=>{setisOpenModal(false)}} >Sri Lanka</button></li>
   <li><button onClick={()=>{setisOpenModal(false)}} >Dubai</button></li>
    <li><button onClick={()=>{setisOpenModal(false)}} >U.S.A</button></li> 
@@ -47,7 +75,7 @@ e.target.value.toLoweCase();
   <li><button onClick={()=>{setisOpenModal(false)}} >Sri Lanka</button></li>
   <li><button onClick={()=>{setisOpenModal(false)}} >Dubai</button></li>
   <li><button onClick={()=>{setisOpenModal(false)}} >U.S.A</button></li>
-  <li><button onClick={()=>{setisOpenModal(false)}} >Australia</button></li> 
+  <li><button onClick={()=>{setisOpenModal(false)}} >Australia</button></li>  */}
 </ul>
       </Dialog>
     </div>

@@ -59,13 +59,13 @@ try {
           }) 
     
     }  
-    let EMail=localStorage.getItem("userEmail")
+    let Email=localStorage.getItem("userEmail")
     let user={
-        email:EMail,
-        password:formfield.newpassword
+        email:Email,
+        newPass:formfield.newpassword
     }
-    PostData("/api/User/changepassword",user).then((res)=>{
-        if(res.status==="success"){
+    PostData("/api/User/forgetpassword/changepassword",user).then((res)=>{
+        if(res.success===true){
               context.setalertbox({
                 open:true,
                 error:false,
@@ -74,7 +74,7 @@ try {
               }) 
               localStorage.removeItem("userEmail");
               localStorage.removeItem("actionType");
-              history("/signin")
+              history("/signin");
         }
     })
 } catch (error) {
