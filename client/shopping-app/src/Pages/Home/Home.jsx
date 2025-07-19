@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import HomeBanner from '../../Components/HomeBanner'
 import Homeproducts from './Homeproducts'
 import { MdOutlineEmail } from "react-icons/md";
 import { fetchDataFromApi } from '../../utils/api';
 import HomeCart from './HomeCart';
+import { MyContext } from '../../App';
 
 function Home() {
   const [catData,setCatData]=useState([]);
+  const {featuredProductdata,setFeaturedProductsdata}=useContext(MyContext)
   const controller = new AbortController(); 
   const [featuredProducts,setFeaturedProducts]=useState([]);
   const [productsdata,setProductData]= useState([]);
@@ -49,6 +51,11 @@ useEffect(() => {
         }, 2000);
 
 })
+useEffect(()=>{
+  setFeaturedProductsdata(featuredProducts
+
+  )
+},[featuredProducts]);
 
   return (
     <div>
@@ -59,7 +66,7 @@ useEffect(() => {
    <Homeproducts featuredProducts={featuredProducts} productsdata={productsdata} catData={catData} />
    <section className="newsLetterSection mt-3 mb-3 d-flex align-items-center ">
     <div className="container ">
-      <div className="row d-flex align-items-center">
+      <div  className="row d-flex align-items-center">
 <div className="col-md-6   ">
 <p className="text-white mb-1">$20 discount for first order</p>
 <h3 className='text-white'>Join our newsletter and get.....</h3>
@@ -71,7 +78,7 @@ useEffect(() => {
 </form>
 </div>
 <div className="col-md-6">
-  <img src="https://fullstack-ecommerce.netlify.app/static/media/newsletter.5931358dd220a40019fc.png" alt="" />
+  <img src="https://fullstack-ecommerce.netlify.app/static/media/newsletter.5931358dd220a40019fc.png" alt="" loading='lazy' />
   
 </div>
 </div>

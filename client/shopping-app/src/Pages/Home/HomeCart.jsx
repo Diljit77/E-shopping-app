@@ -45,7 +45,7 @@ function HomeCart(props) {
       
     return (
         <div className="homecat">
-            <div className="container">
+            <div className="container" id='second-navbar'>
                 <h3 className='mb-4 hd'>Featuered Catagories</h3>
                 <Swiper
                     slidesPerView={10}
@@ -53,7 +53,7 @@ function HomeCart(props) {
                     navigation={true}
                    slidesPerGroup={1}
                     modules={[Navigation]}
-                    className="mySwiper" >
+                    className="mySwiper"  id='second-navbar'>
                      
                         { Array.isArray(catData) &&
                             props?.catData?.length!==0 && props?.catData.map((Cat,index)=>{

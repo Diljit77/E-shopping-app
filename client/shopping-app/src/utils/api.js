@@ -20,11 +20,11 @@ const baseurl=import.meta.env.VITE_BASE_URL;
       
         body:JSON.stringify(FormData)
        })
-       if(response.ok){
+      
         const data=await response.json();
         console.log(data)
         return data;
-       }
+      
     }catch(err){
         console.log(err);
         return err

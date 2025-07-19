@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import ProductItem from '../Home/ProductItem'
+
 import ProductZoom from '../../Components/ProductZoom'
 import { Button, CircularProgress, Rating } from '@mui/material'
-import QuantityDrop from '../../Components/QuantityDrop'
+
 import { BsFillCartFill } from "react-icons/bs";
 
 import { IoMdHeartEmpty } from 'react-icons/io'
 import { MdCompareArrows } from 'react-icons/md'
-import  RelattedProducts from './RelattedProducts'
+
 import { useParams } from 'react-router-dom'
 import { fetchDataFromApi, PostData } from '../../utils/api'
 import { MyContext } from '../../App'
@@ -53,6 +53,9 @@ function ProductDetail() {
 
       
 })
+useEffect(()=>{
+    setrating(context.rating);
+},[context.rating])
 const Quantity=(val)=>{
     setproductQuantity(val)
 }
@@ -74,6 +77,28 @@ const addreview=(e)=>{
     review.customerId=user?.userId
     review.productId=id;
     console.log(review)
+    if(review.customerRating===0){
+         setIsLoading(false)
+       context.setalertbox({
+        msg:"Please give the rating ",
+   open:true,
+   error:true,
+
+})
+
+return null;
+    }
+    if(review.customerName===""||review.review===""){
+         setIsLoading(false)
+              context.setalertbox({
+        msg:"Please fill the required input ",
+   open:true,
+   error:true,
+
+})
+
+return null;
+    }
 if(!review.customerId){
     setIsLoading(false)
        context.setalertbox({
@@ -154,12 +179,23 @@ context.addtocart(cart)
       }
   PostData("/api/myList/add",data).then((res)=>{
   
+   if(res.status ===true){
     context.setalertbox({
       msg:"Added Succesfully",
   open:true,
   error:false,
   
   })
+  }
+  
+  if(res.status===false){
+       context.setalertbox({
+      msg:res.message,
+  open:true,
+  error:true,
+  
+  })
+  }
   })
     }else{
       context.setalertbox({
@@ -207,12 +243,12 @@ context.addtocart(cart)
                             <p className="mt-2">{productdata?.description}</p>
                             <div className="d-flex align-items-center mt-2">
                                 <QuantityDrops Quantity={Quantity}  />
-                                <button  className='bg-blue btn-lg btn-round bg-big' onClick={()=>addtocart(productdata)} ><BsFillCartFill /> &nbsp; Add To Cart</button>
+                                <button  className='bg-blue btn-lg btn-round bg-big cart' onClick={()=>addtocart(productdata)} ><BsFillCartFill /> &nbsp; Add To Cart</button>
 
 
                             </div>
                             <div className="d-flex align-item-center actions">
-                                <Button onClick={()=>addtomyList(id)} className="btn-round mt-3 btn-sml" style={{ textTransform: "capitalize", borderRadius: "40px", color: "#000", borderColor: "#000" }} variant="outlined"><IoMdHeartEmpty />Add To Wishlist</Button>
+                                <Button onClick={()=>addtomyList(id)} className="btn-round mt-3 btn-sml list" style={{ textTransform: "capitalize", borderRadius: "40px", color: "#000", borderColor: "#000" }} variant="outlined"><IoMdHeartEmpty />Add To Wishlist</Button>
                                 <Button className="btn-round mt-3 btn-sml ml-3" style={{ textTransform: "capitalize", borderRadius: "40px", color: "#000", borderColor: "#000" }} variant="outlined"><MdCompareArrows />Compare</Button>
                             </div>
                         </div>
@@ -223,13 +259,13 @@ context.addtocart(cart)
                         <div className="customTabs">
                             <ul className="list  list-inline">
                                 <li className="list-inline-item">
-                                    <button className={`${activetabs === 0 && 'active'}`} onClick={() => setActivetabs(0)}>Description</button>
+                                    <button className={`${activetabs === 0 && 'active'} descriptions`} onClick={() => setActivetabs(0)}>Description</button>
                                 </li>
                                 <li className="list-inline-item">
-                                    <button className={`${activetabs === 1 && 'active'}`} onClick={() => setActivetabs(1)}>Additional Info</button>
+                                    <button className={`${activetabs === 1 && 'active'} addinfo`} onClick={() => setActivetabs(1)}>Additional Info</button>
                                 </li>
                                 <li className="list-inline-item">
-                                    <button className={`${activetabs === 2 && 'active'}`} onClick={() => setActivetabs(2)}>Review({ReviewData.length})</button>
+                                    <button className={`${activetabs === 2 && 'active'} review`} onClick={() => setActivetabs(2)}>Review({ReviewData.length})</button>
                                 </li>
 
                             </ul>
@@ -298,21 +334,21 @@ context.addtocart(cart)
                                             <form className='reviewForm'>
                                                 <h3 className='mt-2'>Add a Review</h3>
                                                 <div className="form-group">
-                                                    <textarea className='form-control' placeholder='Write a Review' onChange={changeinput}  name='review'></textarea>
+                                                    <textarea id='review-input'  className='form-control' placeholder='Write a Review' onChange={changeinput}  name='review'></textarea>
                                                 </div>
                                                 <div className="row">
                                         <div className="col-md-6">
                                            
- <input type="text" className='form-control shadow' name='customerName' placeholder='Name' onChange={changeinput} /></div>
+ <input type="text" id='customer-name' className='form-control shadow' name='customerName' placeholder='Name' onChange={changeinput} /></div>
                                        
                                         <div className="col-md-6">
-                                            <div className="form-group">
-                                                <Rating name='rating'   value={rating} onChange={changerating}  />
+                                            <div id='rating-wrapper' className="form-group">
+                                                <Rating name='rating' id="star-rating"  value={rating} onChange={changerating}  />
                                             </div>
                                         </div>
                                         
                                                 </div>
-                                                <button  type='submit' onClick={addreview} className='bg-blue btn-lg btn-round bg-big '>
+                                                <button id='submit-review' type='submit' onClick={addreview} className='bg-blue btn-lg btn-round bg-big '>
                                                     { isLoading===true?<CircularProgress /> :"Submit Review"}</button>
                                             </form>
                                                 

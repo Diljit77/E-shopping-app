@@ -92,7 +92,7 @@ router.get("/usercart/:id",async (req,res) => {
         }
         res.status(200).json(cart);
     } catch (error) {
-        res.status(500).json({message:err,success:false})
+        res.status(500).json({message:error,success:false})
     }
 })
 // Delete Cart Route

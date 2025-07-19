@@ -14,12 +14,13 @@ function WIshList() {
     
     
    
-    const [cartfielddata,setcartfielddata]=useState({})
+  
 
     useEffect(() => {
       
     fetchDataFromApi("/api/myList/").then((res)=>{
         setmyListdata(res);
+    context.setmylistdata(res);
       
 
     })

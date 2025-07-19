@@ -176,12 +176,12 @@ pay.open();
 <div className="row mt-7">
     <div className="col-md-6">
         <div className="form-group">
-            <TextField label="Full Name" variant='outlined' size='small' className='w-100' name="fullname" onChange={onchangeinput} />
+            <TextField label="Full Name" id='name' variant='outlined' size='small' className='w-100' name="fullname" onChange={onchangeinput} />
             </div>   
              </div>
              <div className="col-md-6">
         <div className="form-group">
-        <TextField label="Country" variant='outlined' size='small' className='w-100' name="country" onChange={onchangeinput} />
+        <TextField label="Country" id='country' variant='outlined' size='small' className='w-100' name="country" onChange={onchangeinput} />
             </div>   
              </div>
 </div>
@@ -190,10 +190,10 @@ pay.open();
 <div className="col-md-12">
   
         <div className="form-group">
-        <TextField label="House no and street name" variant='outlined' size='small' name="streetaddressline1" onChange={onchangeinput}  className='w-100' />
+        <TextField label="House no and street name" id='line1' variant='outlined' size='small' name="streetaddressline1" onChange={onchangeinput}  className='w-100' />
         </div>
         <div className="form-group">
-        <TextField label="Apartment suite ,unit etc(optional)" variant='outlined' size='small' name="streetaddressline2" onChange={onchangeinput}  className='w-100' />
+        <TextField label="Apartment suite ,unit etc(optional)"  id='line2' variant='outlined' size='small' name="streetaddressline2" onChange={onchangeinput}  className='w-100' />
         </div>
 
 </div>
@@ -203,7 +203,7 @@ pay.open();
 <div className="col-md-12">
   
         <div className="form-group">
-        <TextField label="House no and street name" variant='outlined' size='small' name="city" onChange={onchangeinput}  className='w-100' />
+        <TextField label="House no and street name" id='city' variant='outlined' size='small' name="city" onChange={onchangeinput}  className='w-100' />
         </div>
      
 
@@ -214,7 +214,7 @@ pay.open();
 <div className="col-md-12">
   
         <div className="form-group">
-        <TextField label="State/Dountry" variant='outlined' name="state" onChange={onchangeinput}  size='small' className='w-100' />
+        <TextField label="State/Dountry" id='state' variant='outlined' name="state" onChange={onchangeinput}  size='small' className='w-100' />
         </div>
      
 
@@ -224,14 +224,14 @@ pay.open();
 <div className="col-md-12">
   <h6>PostCode/Zip</h6>
         <div className="form-group">
-        <TextField label="Zip Code" variant='outlined' name="zipcode" onChange={onchangeinput}  size='small' className='w-100' />
+        <TextField label="Zip Code" id='zipcode' variant='outlined' name="zipcode" onChange={onchangeinput}  size='small' className='w-100' />
         </div>
         <div className="row mt-3">
 <div className="col-md-6">
   
         <div className="form-group">
   
-        <TextField label="Phone Number" variant='outlined' name="phonenumber" onChange={onchangeinput}  size='small' className='w-100' />
+        <TextField label="Phone Number" id='mobile' variant='outlined' name="phonenumber" onChange={onchangeinput}  size='small' className='w-100' />
         </div>
    
      
@@ -240,7 +240,7 @@ pay.open();
 <div className="col-md-6">
   
         <div className="form-group">
-        <TextField label="Email address" variant='outlined'name="email" onChange={onchangeinput}  size='small' className='w-100' />
+        <TextField label="Email address" id='email' variant='outlined'name="email" onChange={onchangeinput}  size='small' className='w-100' />
         </div>
    
      
@@ -291,7 +291,7 @@ pay.open();
                                    </tbody>
                                 </table>
                             </div>
-                            <button type='submit' className='bg-blue btn-lg  bg-big ml-3'>Place Orders</button>
+                            <button type='submit' id='place' className='bg-blue btn-lg  bg-big ml-3'>Place Orders</button>
                         </div>
                         </div>
                     </div>

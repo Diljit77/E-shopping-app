@@ -101,7 +101,7 @@ router.put("/:id",async (req,res) => {
             customerRating:req.body.customerRating,
             customerId:req.body.customerId
         },{new:true});
-    if(updatedreview){
+    if(!updatedreview){
         return res.status(404).json({message:"the review is not updated",success:false})
     }
     return res.status(200).json({message:"the review is updated succesfully",success:true})

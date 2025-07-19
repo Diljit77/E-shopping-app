@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import logo from "../../assets/images/logo.png"
+
 import { IoSearch } from 'react-icons/io5'
 import { fetchDataFromApi } from '../../utils/api';
 import { MyContext } from '../../App';
@@ -9,8 +9,10 @@ function Searchbox() {
   const context=useContext(MyContext);
   
   const [isLoading,setisloading]=useState(false)
-    const [searchfield,setsearchfield]=useState('');
-    const [showResults, setShowResults] = useState(false);
+  const { searchfield, setsearchfield,showResults, setShowResults } = useContext(MyContext);
+
+
+  
     const resultsRef = useRef(null);
 
     const changevalue=(e)=>{
@@ -35,13 +37,7 @@ fetchDataFromApi(`/api/search?q=${query}`).then((res)=>{
     const searchProducts=()=>{
       setisloading(true)
 
-// fetchDataFromApi(`/api/search?q=${searchfield}`).then((res)=>{
-//   context.setsearchData(res);
-//   history("/search")
-// setisloading(false)
 
-  
-// })
 
     }
     const handleClickOutside = (event) => {
@@ -64,14 +60,18 @@ fetchDataFromApi(`/api/search?q=${query}`).then((res)=>{
   
   return (
        <div className="headerSearch ml-3">
-                    <input type="text" placeholder='Serach your Products......' id="searchInput" onFocus={() => setShowResults(true)}
+                    <input type="text" placeholder='Serach your Products......' id="searchInput" value={searchfield} onFocus={() => setShowResults(true)}
  onChange={changevalue}  />
-         <button onClick={searchProducts} >
+        {/* <button >
           {
             isLoading===true ?<CircularProgress className='LOAD' /> :<IoSearch  />
           }
-          {/* <IoSearch  /> */}
-          </button> 
+          <IoSearch  />
+          </button>  */}
+          <button>
+          <IoSearch  />
+          </button>
+  
           <div  className="searchResults res-hide">
           { showResults===true &&
             context.searchData.length!==0 && context.searchData.map((item,index)=>{

@@ -27,7 +27,7 @@ import Searchbox from '../../Pages/Search/Searchbox';
 function Header() {
   const [subcat, setSubCat] = useState([])
   const [cartdata,setcartdata]=useState([]);
-
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       if(subcat.length===0){
@@ -85,7 +85,7 @@ function Header() {
       </div>
       <div className="header">
         <div className="container">
-          <div className="row">
+          <div className="row flexs">
             <div className="logoWrapper col-sm-2 d-flex align-items-center">
               < img src={Logo} alt="Logo" />
 
@@ -183,7 +183,7 @@ function Header() {
                 }
 
                 <div className="ml-auto carttab d-flex align-items-center">
-                  <span className="price">$3.37</span>
+                  {/* <span className="price">$3.37</span> */}
 
                   <div className="position-relative ml-2">
                     <Link to="/cart">
@@ -199,117 +199,8 @@ function Header() {
       <nav>
         <div className="container">
           <div className="row">
-            {/* <div className="col-sm-3 navpart1">
-              <div className="cartWrapper">
-                <div className="allcattab align-items-center" onClick={() => {
-                  console.log(isOpenSideval)
-                  setisOpenSideval(!isOpenSideval)
-                }
-                }>
-                  <span className='icon1 mr-2'><IoMdMenu /></span>
-                  <button className='text'>ALL CATAGORIES
-                    <span className='icon2 ml-2'><FaAngleDown /></span> </button>
-
-                </div>
-                <div className={`sidebarNav ${isOpenSideval === true ? "open" : ""}`} >
-                  <ul>
-                    <li><Link to="/"><Button>Men <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>  </li>
-                    <li><Link to="/"><Button>Woman <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>
-                    </li>
-                    <li><Link to="/"><Button>Beauty <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>  </li>
-                    <li><Link to="/"><Button>Wathes <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>  </li>
-                    <li><Link to="/"><Button>kids <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>  </li>
-                    <li><Link to="/"><Button>Gift <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>  </li>
-                    <li><Link to="/"><Button>Beauty <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>  </li>
-                    <li><Link to="/"><Button>Wathes <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>  </li>
-                    <li><Link to="/"><Button>kids <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>  </li>
-                    <li><Link to="/"><Button>Gift <FaAngleRight className='ml-auto' /> </Button></Link>
-                      <div className="submenu d-flex " style={{ flexDirection: "column" }}>
-                        <Link to="/"><Button>Clothing</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-                        <Link to="/"><Button>Footwear</Button></Link>
-                        <Link to="/"><Button>Watches</Button></Link>
-
-                      </div>  </li>
-                  </ul>
-
-                </div>
-              </div>
-            </div> */}
-            <div className="col-sm-9 navpart2 d-flex align-item-center">
+        
+            <div id="main-navbar"  className="col-sm-9 navpart2 d-flex align-item-center">
               <ul className='list list-inline ml-auto'>
                 <li className='list-inline-item' >
 

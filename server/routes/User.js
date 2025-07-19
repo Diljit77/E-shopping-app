@@ -290,6 +290,10 @@ router.post("/loginwithgoogle",async (req,res) => {
         sendEmailFun(email,"Default password","", `Dear User,<br><br>
                 your default password is ${password}, please change your password in the account section for security`);
         }
+        if(existUser.password===null && password===null ){
+            sendEmailFun(email,"Default password","", `Dear User,<br><br>
+                your default password is ${password}, please change your password in the account section for security`);
+        }
         if(!existUser){
             const result=await User.create({
                 name:name,

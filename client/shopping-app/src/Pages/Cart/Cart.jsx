@@ -24,6 +24,7 @@ function Cart() {
         }else{
             fetchDataFromApi(`/api/cart/usercart/${userId}`).then((res)=>{
                 setcartdata(res);
+                context.setCartdata(res)
               
         
             })

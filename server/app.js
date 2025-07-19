@@ -15,8 +15,9 @@ import cartRoute from "./routes/Cart.js"
 import MyRoute from "./routes/myList.js"
 import SerachRoute from "./routes/Serach.js"
 import OrderRoute from "./routes/Orders.js"
+import compression from "compression";
 app.use(cors());
-
+app.use(compression());
 const port=process.env.port||process.env.PORT;
 // middleware
 app.use(bodyParser.json());

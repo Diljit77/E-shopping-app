@@ -82,13 +82,25 @@ setisOpenProductModal({
         userId:user?.userId
       }
   PostData("/api/myList/add",data).then((res)=>{
-  
+  if(res.status ===true){
     context.setalertbox({
       msg:"Added Succesfully",
   open:true,
   error:false,
   
   })
+  }
+  
+  if(res.status===false){
+       context.setalertbox({
+      msg:res.message,
+  open:true,
+  error:true,
+  
+  })
+  }
+  
+
   })
     }else{
       context.setalertbox({
@@ -104,7 +116,7 @@ setisOpenProductModal({
     <div className={`productitem item ${props.itemView}` } onMouseEnter={handleMouseEnter}
     onMouseLeave={handleMouseLeave}>
     <div className="imgWrapper">
-  <Link to={`/product/${props?.item?._id}`}><img src={props.item?.images[0]} className='w-100 IMG' alt="" /></Link>  
+  <Link to={`/product/${props?.item?._id}`}><img src={props.item?.images[0]} className='w-100 IMG' alt=""  loading='lazy'/></Link>  
 
 <span className='badge badge-primary'>{props?.item?.discount}%</span>
 <div className="actions">

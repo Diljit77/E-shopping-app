@@ -43,9 +43,9 @@ res.status(401).json({ status:false,message:"the product is alredy added"})
     })
     myList=myList.save();
     if(!myList){
-        res.status(500).json({message:"Somehing Wrong",status:false})
+        res.status(500).json({message:"Something Wrong",status:false})
     }
-    res.status(201).json(myList)
+    res.status(201).json({status:true, myList})
 }
 })
 

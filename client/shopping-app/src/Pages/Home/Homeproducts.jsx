@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MdOutlineArrowForward } from "react-icons/md";
-import Rating from '@mui/material/Rating';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Navigation } from 'swiper/modules';
-import { AiOutlineFullscreen } from "react-icons/ai";
-import { IoIosHeartEmpty } from "react-icons/io";
+
 import ProductItem from './ProductItem';
-import HomeCart from './HomeCart';
+
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { fetchDataFromApi } from '../../utils/api';
 import { CircularProgress } from '@mui/material';
+import { MyContext } from '../../App';
 
 function Homeproducts(props) {
     const [catData, setCatData] = useState([])
     const [value, setValue] = useState(0);
     const [Cat,setCat]=useState('Fashion')
     const [selectcat,setselectCat]=useState('')
-
+const context=useContext(MyContext);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -36,12 +36,14 @@ function Homeproducts(props) {
         setTimeout(() => {
             fetchDataFromApi(`/api/product?perPage=12&catName=${Cat}`).then((res)=>{
                 setProductData(res);
+   
+    context.setProductData(res);
           
               })
               setFeaturedProducts(props.featuredProducts)
         
               setCatData(props.catData)
-          }, 3000);
+          }, 1000);
         
          
 
@@ -58,11 +60,11 @@ function Homeproducts(props) {
                         <div className="col-md-3">
                             <div className="sticky">
                                 <div className="banner">
-                                    <img src="https://klbtheme.com/bacola/wp-content/uploads/2021/04/banner-box.jpg" alt="" className="cursor" />
+                                    <img src="https://klbtheme.com/bacola/wp-content/uploads/2021/04/banner-box.jpg" alt="" className="cursor" loading='lazy' />
                                 </div>
 
                                 <div className="banner mt-4">
-                                    <img src="https://api.spicezgold.com/download/file_1734525757507_NewProject(34).jpg" alt="" className="cursor" />
+                                    <img src="https://api.spicezgold.com/download/file_1734525757507_NewProject(34).jpg" loading='lazy' alt="" className="cursor" />
                                 </div>
                             </div>       </div>
                         <div className="col-md-9 productRow">
@@ -92,7 +94,7 @@ function Homeproducts(props) {
                                 {/**/}
 
                             </div>
-                            <div className="product_row">
+                            <div className="product_row ">
                                 <Swiper
                                     slidesPerView={4}
                                     spaceBetween={0}
@@ -100,7 +102,7 @@ function Homeproducts(props) {
                                         clickable: true,
                                     }}
                                     modules={[Navigation]}
-                                    className="mySwiper" >
+                                    className="mySwiper carousel-container" >
                                   
                                     { Array.isArray(Productdata) &&
                                          Productdata?.length !== 0 && Productdata?.map((item, index) => {
